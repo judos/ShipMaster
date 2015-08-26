@@ -1,0 +1,22 @@
+new features:
+
+intelligent ship spawner
+background image for map
+image for ships & rectangle collision boxes
+
+docks that only accept one size of ships
+support for sized window mode and different resolutions
+
+animation beim entladen der container
+frachtschiffe mit flüssigladung (e.g. öl)
+container zwischelagerung und weitertransport (e.g. nummern)
+Schiffe docken seitlich an
+
+
+------------------------------------------------------
+implemented:
+------------------------------------------------------
+
+path drawing for ships leaving the dock
+path drawing goes into the dock and deselects ship
+path drawing stops on land
