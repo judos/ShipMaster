@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Author: judos -->
+<project name="shipMaster" default="main">
+	<property name="propertyFile" value="generated.properties.txt" />
+
+	<property file="${propertyFile}" />
+	<property file="manual.properties.txt" />
+	<import file="macros.xml" />
+
+	<target name="main" depends="current-version,output">
+		<!--<antcall target="current-version" />-->
+		<taskdef resource="net/sf/antcontrib/antlib xml"/>
+		<echo message="Testing ant-contrib is working by looping through a list of letters."/>
+		<for list="a,b,c,d,e" param="letter">
+		      <sequential>
+		            <echo>Letter @{letter}</echo>
+		      </sequential>
+		</for>
+	</target>
+	
+	<target name="output">
+		<echo>Current version:${version}</echo>
+	</target>
+
+	<target name="current-version">
+		<antcall target="get-revision" />
+		<antcall target="get-minor" />
+		<property name="temp" value="${version.major}.${version.minor}.${version.revision}" />
+		<sequential>
+			<script language="javascript">
+				project.setProperty("@{version}", "asdf");
+			</script>
+		</sequential>
+	</target>
+
+	<target name="get-revision">
+		<!-- include system path variable to execute git in cmd -->
+		<property environment="env" />
+		<exec executable="cmd" outputproperty="version.revision" failonerror="true">
+			<arg value="/c" />
+			<arg value="git rev-list HEAD --count" />
+		</exec>
+	</target>
+
+	<target name="get-minor">
+		<condition property="version.increment.minor">
+			<equals arg1="${version.major}" arg2="${version.major.last}" />
+		</condition>
+		<antcall target="minor-increment" />
+		<antcall target="minor-reset" />
+		<propertyfile file="${propertyFile}">
+			<entry key="version.minor.last" value="${version.minor}" />
+		</propertyfile>
+	</target>
+
+	<target name="minor-increment" if="version.increment.minor">
+		<math operation="+" operator1="${version.minor.last}" operator2="1" result="${version.minor}" />
+	</target>
+
+	<target name="minor-reset" unless="version.increment.minor">
+		<property name="version.minor" value="0" />
+	</target>
+</project>

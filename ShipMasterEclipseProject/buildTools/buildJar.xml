@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="build" name="Create Runnable Jar for Project with Jar-in-Jar Loader">
+
+	<target name="build" depends="clean,compile" description="Baut die komplette Anwendung">
+	</target>
+	
+	<target name="clean">
+	</target>
+		
+	<target name="compile">
+			<jar destfile="../../Releases/ShipMaster.jar" filesetmanifest="mergewithoutmain">
+					<manifest>
+							<attribute name="Main-Class" value="Launcher"/>
+							<attribute name="Class-Path" value="."/>
+					</manifest>
+					<fileset dir="D:/Julian/eclipse workspace/ShipMaster/ShipMasterEclipseProject/bin"/>
+					<zipfileset excludes="META-INF/*.SF" src="D:/Programme/eclipse/plugins/org.junit_4.11.0.v201303080030/junit.jar"/>
+					<zipfileset excludes="META-INF/*.SF" src="D:/Programme/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+			</jar>
+	</target>
+	
+</project>
