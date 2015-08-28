@@ -1,34 +1,6 @@
 <!-- Author: judos -->
 <!-- create macrodef -->
 <project>
-	<macrodef name="math">
-		<attribute name="operation" />
-		<attribute name="operator1" />
-		<attribute name="operator2" />
-		<attribute name="result" />
-		<sequential>
-			<script language="javascript">
-     tmp = 0;
-     switch ("@{operation}")
-     {
-      case "+" :
-       tmp = parseInt("@{operator1}") + parseInt("@{operator2}");
-       break;
-      case "-" :
-       tmp = parseInt("@{operator1}") - parseInt("@{operator2}");
-       break;
-      case "*" :
-       tmp = parseInt("@{operator1}") * parseInt("@{operator2}");
-       break;
-      case "/" :
-       tmp = parseInt("@{operator1}") / parseInt("@{operator2}");
-       break;
-     }
-     project.setProperty("@{result}", tmp);
-    </script>
-		</sequential>
-	</macrodef>
-
 	<macrodef name="assertDirAvailable">
 		<attribute name="dir" />
 		<sequential>
