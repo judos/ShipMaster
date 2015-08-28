@@ -1,6 +1,7 @@
 # JAVA files
 *.class
-*.jar
+
+bin/
 
 # build tool files
 .gradle
