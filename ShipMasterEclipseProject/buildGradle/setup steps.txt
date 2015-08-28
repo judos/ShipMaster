@@ -1,3 +1,0 @@
-1. download gradle-2.6-all.zip from:
-		http://gradle.org/gradle-download/
-2. unzip and add the bin folder of gradle to your system path
