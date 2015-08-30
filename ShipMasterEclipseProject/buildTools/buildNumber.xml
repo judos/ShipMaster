@@ -47,6 +47,7 @@
 	<target name="get-revision">
 		<!-- include system path variable to execute git in cmd -->
 		<property environment="env" />
+		<!--<echo message="${env.Path}" />-->
 		<exec executable="cmd" outputproperty="version.revision" failonerror="true">
 			<arg value="/c" />
 			<arg value="git rev-list HEAD --count" />
