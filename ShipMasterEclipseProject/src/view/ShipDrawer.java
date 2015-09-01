@@ -2,7 +2,9 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
 import model.Cargo;
 import model.Ship;
 import model.ShipType;
@@ -13,9 +15,10 @@ import ch.judos.generic.data.geometry.PointI;
  * @since 14.05.2015
  * @author Julian Schelker
  */
-public class ShipDrawer {
+public class ShipDrawer extends DrawingClass {
 
-	private static final Color	pathColor	= new Color(255, 255, 255);
+	private static final Color pathColor = new Color(255, 255, 255);
+	private static BufferedImage ship = load("ship.png");
 
 	public static void drawShip(Graphics2D g, Ship s) {
 		PointF pos = s.getPoint();
@@ -25,7 +28,8 @@ public class ShipDrawer {
 		int size = type.getSize();
 
 		g.setColor(Color.darkGray);
-		g.fillOval(-size, -size, 2 * size, 2 * size);
+		// g.fillOval(-size, -size, 2 * size, 2 * size);
+		g.drawImage(ship, -ship.getWidth() / 2, -ship.getHeight() / 2, null);
 
 		drawShipCargo(g, s);
 	}
@@ -41,7 +45,7 @@ public class ShipDrawer {
 		int x = -total / 2;
 		for (int i = 0; i < cargo.getSize(); i++) {
 			g.setColor(cargo.getColorOf(i));
-			g.fillRect(x + 2, -9, sizeContainer-1, 20);
+			g.fillRect(x + 2, -9, sizeContainer - 1, 20);
 			x += sizeContainer;
 		}
 	}

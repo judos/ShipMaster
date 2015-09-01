@@ -2,10 +2,13 @@ package view;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.image.BufferedImage;
 
-import model.*;
-import model.border.Border;
-import model.border.RestrictionBorder;
+import model.Attention;
+import model.Dock;
+import model.Map;
+import model.Ship;
 import ch.judos.generic.data.geometry.DirectedPoint;
 import ch.judos.generic.data.geometry.PointI;
 import ch.judos.generic.graphics.Drawable2d;
@@ -14,20 +17,37 @@ import ch.judos.generic.graphics.Drawable2d;
  * @since 14.05.2015
  * @author Julian Schelker
  */
-public class MapDrawer implements Drawable2d {
+public class MapDrawer extends DrawingClass implements Drawable2d {
 
-	private Map				map;
-	private static Color	landColor	= new Color(140, 70, 0);
-	private static Color	waterColor	= new Color(80, 170, 255);
-	private static Font	text			= new Font("Arial", 0, 24);
+	private Map map;
+	private int waterIndex;
+	private static Font text = new Font("Arial", 0, 24);
+	private static BufferedImage grassTex = load("grass.png");
+	private static BufferedImage[] waterTex = new BufferedImage[16];
+	private static BufferedImage rock = load("rockwall.png");
 
 	public MapDrawer(Map map) {
 		this.map = map;
+		this.waterIndex = 0;
+
+		BufferedImage water = load("water2-q40.jpg");
+		for (int y = 0; y < 4; y++) {
+			for (int x = 0; x < 4; x++) {
+				waterTex[y * 4 + x] = water.getSubimage(x * 1024, y * 1024, 1024, 1024);
+			}
+		}
 	}
 
 	@Override
 	public void paint(Graphics2D g) {
-		g.setColor(waterColor);
+		float slowed = 6;
+		this.waterIndex++;
+		this.waterIndex = this.waterIndex % (int) (16 * slowed);
+
+		int actualIndex = (int) ((float) this.waterIndex / slowed);
+		TexturePaint waterPaint = new TexturePaint(waterTex[actualIndex], new Rectangle(0, 0,
+			1024, 1024));
+		g.setPaint(waterPaint);
 		g.fillRect(0, 0, 1920, 1080);
 
 		drawLand(g);
@@ -53,25 +73,34 @@ public class MapDrawer implements Drawable2d {
 			int size = Attention.signSize;
 			g.fillOval(p.x - size / 2, p.y - size / 2, size, size);
 			g.setColor(Color.white);
-			g.drawString("!", p.x,p.y);
+			g.drawString("!", p.x, p.y);
 		}
 	}
 
 	private void drawLand(Graphics2D g) {
+		TexturePaint grassPaint = new TexturePaint(grassTex, new Rectangle(0, 0, 512, 512));
+		g.setPaint(grassPaint);
+		Area a = new Area();
 		for (Polygon poly : this.map.getLandPolygons()) {
-			g.setColor(landColor);
-			g.fillPolygon(poly);
+			a.add(new Area(poly));
 		}
+		for (Dock d : this.map.getDocks()) {
+			a.subtract(new Area(new Rectangle(d.getPoint().getX() - 50,
+				d.getPoint().getY() - 50, 100, 100)));
+		}
+
+		g.fill(a);
 	}
 
 	private void drawBorders(Graphics2D g) {
-		for (Border b : this.map.getBorders()) {
-			if (b instanceof RestrictionBorder) {
-				RestrictionBorder rb = (RestrictionBorder) b;
-				g.setColor(new Color(128, 64, 0));
-				g.drawLine(rb.getStart().x, rb.getStart().y, rb.getEnd().x, rb.getEnd().y);
-			}
-		}
+		// for (Border b : this.map.getBorders()) {
+		// if (b instanceof RestrictionBorder) {
+		// RestrictionBorder rb = (RestrictionBorder) b;
+		// g.setColor(new Color(128, 64, 0));
+		// g.drawLine(rb.getStart().x, rb.getStart().y, rb.getEnd().x,
+		// rb.getEnd().y);
+		// }
+		// }
 	}
 
 	private void drawShipInDanger(Graphics2D g) {
@@ -101,6 +130,9 @@ public class MapDrawer implements Drawable2d {
 
 	private void drawDocks(Graphics2D g) {
 		AffineTransform transformOriginal = g.getTransform();
+		TexturePaint grassPaint = new TexturePaint(rock, new Rectangle(0, 0, 512, 512));
+		g.setPaint(grassPaint);
+
 		for (Dock d : this.map.getDocks()) {
 
 			DirectedPoint position = d.getPoint();
@@ -108,10 +140,6 @@ public class MapDrawer implements Drawable2d {
 			g.translate(position.getX(), position.getY());
 			g.rotate(position.getAAngle().getRadian());
 
-			g.setColor(waterColor);
-			g.fillRect(-40, -40, 90, 80);
-
-			g.setColor(d.getColor());
 			g.drawRect(0, 0, 1, 1);
 			g.fillRect(-50, -50, 100, 10);
 			g.fillRect(-50, -50, 10, 100);

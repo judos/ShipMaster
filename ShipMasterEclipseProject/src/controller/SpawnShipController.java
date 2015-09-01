@@ -12,11 +12,11 @@ import ch.judos.generic.data.geometry.DirectedPoint;
  */
 public class SpawnShipController {
 
-	private static final float	spawnShipEveryXSec	= 5;
+	private static final float spawnShipEveryXSec = 6;
 
-	private Map						map;
+	private Map map;
 
-	private int						timer;
+	private int timer;
 
 	public SpawnShipController(Map map) {
 		this.map = map;
