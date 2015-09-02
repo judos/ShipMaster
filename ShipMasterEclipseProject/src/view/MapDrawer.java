@@ -25,6 +25,7 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 	private static BufferedImage grassTex = load("grass.png");
 	private static BufferedImage[] waterTex = new BufferedImage[16];
 	private static BufferedImage rock = load("rockwall.png");
+	private static BufferedImage beach = load("sand.png");
 
 	public MapDrawer(Map map) {
 		this.map = map;
@@ -85,22 +86,42 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 			a.add(new Area(poly));
 		}
 		for (Dock d : this.map.getDocks()) {
-			a.subtract(new Area(new Rectangle(d.getPoint().getX() - 50,
-				d.getPoint().getY() - 50, 100, 100)));
+			Area dockArea = new Area(new Rectangle(-50, -50, 100, 100));
+			DirectedPoint p = d.getPoint();
+			dockArea
+				.transform(AffineTransform.getRotateInstance(d.getDirection().getRadian()));
+			dockArea.transform(AffineTransform.getTranslateInstance(p.getX(), p.getY()));
+			a.subtract(dockArea);
 		}
-
 		g.fill(a);
 	}
 
 	private void drawBorders(Graphics2D g) {
+		// TexturePaint sand = new TexturePaint(beach, new Rectangle(0, 0,
+		// beach.getWidth(),
+		// beach.getHeight()));
+		// g.setPaint(sand);
+		// Stroke s = g.getStroke();
+		// g.setStroke(new BasicStroke(100));
 		// for (Border b : this.map.getBorders()) {
 		// if (b instanceof RestrictionBorder) {
 		// RestrictionBorder rb = (RestrictionBorder) b;
-		// g.setColor(new Color(128, 64, 0));
 		// g.drawLine(rb.getStart().x, rb.getStart().y, rb.getEnd().x,
 		// rb.getEnd().y);
 		// }
 		// }
+		// ArrayList<RestrictionBorder> borders = new
+		// ArrayList<RestrictionBorder>();
+		// borders.add(new RestrictionBorder(new PointI(300, 300), new
+		// PointI(600, 600)));
+		// for (Border b : borders) {
+		// if (b instanceof RestrictionBorder) {
+		// RestrictionBorder rb = (RestrictionBorder) b;
+		// g.drawLine(rb.getStart().x, rb.getStart().y, rb.getEnd().x,
+		// rb.getEnd().y);
+		// }
+		// }
+		// g.setStroke(s);
 	}
 
 	private void drawShipInDanger(Graphics2D g) {
@@ -130,7 +151,8 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 
 	private void drawDocks(Graphics2D g) {
 		AffineTransform transformOriginal = g.getTransform();
-		TexturePaint grassPaint = new TexturePaint(rock, new Rectangle(0, 0, 512, 512));
+		TexturePaint grassPaint = new TexturePaint(rock, new Rectangle(0, 0, rock.getWidth(),
+			rock.getHeight()));
 		g.setPaint(grassPaint);
 
 		for (Dock d : this.map.getDocks()) {
