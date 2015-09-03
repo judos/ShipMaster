@@ -47,29 +47,35 @@
 	<target name="createChangelog">
 		<!-- include system path variable to execute git in cmd -->
 		<echo>Fetching commit messages since commit for last build: ${version.last.commit}</echo>
-		<property name="git.command" value='git log --pretty="%cn - %h - %cd %n%B" --date="short" ${version.last.commit}..' />
-		<echo message="${git.command}" />
-		<antcallback target="execCommand" return="changelog">
+		<property name="git.command" value='git log --pretty="%cn - %cd (commit: %h) %n%B" --date="short" ${version.last.commit}..' />
+		<var name="output" unset="true" />
+		<antcallback target="execCommand" return="output">
 			<param name="command" value="${git.command}" />
 		</antcallback>
-
-		<loadfile property="previousChangelog" srcFile="${changelog.file.name}" />
+		<property name="changelog" value="${output}" />
+		<loadfile property="previousChangelog" srcFile="${changelog.file.name}" failonerror="no" />
+		<condition property="previousChangelog" value="">
+			<not>
+				<isset property="previousChangelog" />
+			</not>
+		</condition>
 		<echo file="${changelog.file.name}">${version}
 ${changelog}_________________________
 				
 ${previousChangelog}</echo>
 
-		<antcallback target="execCommand" return="version.last.commit">
+		<var name="output" unset="true" />
+		<antcallback target="execCommand" return="output">
 			<param name="command" value='git log --pretty="%h" -n 1' />
 		</antcallback>
 		<propertyfile file="${propertyFile}">
-			<entry key="version.last.commit" value="${version.last.commit}" />
+			<entry key="version.last.commit" value="${output}" />
 		</propertyfile>
 	</target>
 
 	<target name="execCommand">
 		<property environment="env" />
-		<exec executable="cmd" outputproperty="changelog" failonerror="false">
+		<exec executable="cmd" outputproperty="output" failonerror="false">
 			<arg value="/c" />
 			<arg value='${command}' />
 		</exec>
