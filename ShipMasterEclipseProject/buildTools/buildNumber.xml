@@ -7,6 +7,8 @@
 	<property file="${propertyFile}" />
 	<property file="manual.properties.txt" />
 
+	<property name="changelog.file.name" value="last_changelog.txt" />
+	<property name="project.name" value="ShipMaster" />
 
 	<target name="main" depends="">
 		<property name="verboseFlag" value="0" />
@@ -24,9 +26,9 @@
 	</target>
 
 	<target name="compile">
-		<property name="releaseDir" value="../../Releases/ShipMaster-${version}" />
+		<property name="releaseDir" value="../../Releases/${project.name}-${version}" />
 		<mkdir dir="${releaseDir}" />
-		<jar destfile="${releaseDir}/ShipMaster-${version}.jar" filesetmanifest="mergewithoutmain">
+		<jar destfile="${releaseDir}/${project.name}-${version}.jar" filesetmanifest="mergewithoutmain">
 			<manifest>
 				<attribute name="Main-Class" value="Launcher" />
 				<attribute name="Class-Path" value="." />
@@ -35,7 +37,42 @@
 			<!--<zipfileset excludes="META-INF/*.SF" src="../libs/junit-4.12.jar" />
 			<zipfileset excludes="META-INF/*.SF" src="../libs/hamcrest-all-1.3.jar" />-->
 		</jar>
-		<copydir src="../data" dest="${releaseDir}/data"></copydir>
+		<copydir src="../data" dest="${releaseDir}/data" />
+		<antcall target="createChangelog">
+			<param name="version" value="${version}" />
+		</antcall>
+		<copyfile src="${changelog.file.name}" dest="${releaseDir}/changelog.txt" />
+	</target>
+
+	<target name="createChangelog">
+		<!-- include system path variable to execute git in cmd -->
+		<echo>Fetching commit messages since commit for last build: ${version.last.commit}</echo>
+		<property name="git.command" value='git log --pretty="%cn - %h - %cd %n%B" --date="short" ${version.last.commit}..' />
+		<echo message="${git.command}" />
+		<antcallback target="execCommand" return="changelog">
+			<param name="command" value="${git.command}" />
+		</antcallback>
+
+		<loadfile property="previousChangelog" srcFile="${changelog.file.name}" />
+		<echo file="${changelog.file.name}">${version}
+${changelog}_________________________
+				
+${previousChangelog}</echo>
+
+		<antcallback target="execCommand" return="version.last.commit">
+			<param name="command" value='git log --pretty="%h" -n 1' />
+		</antcallback>
+		<propertyfile file="${propertyFile}">
+			<entry key="version.last.commit" value="${version.last.commit}" />
+		</propertyfile>
+	</target>
+
+	<target name="execCommand">
+		<property environment="env" />
+		<exec executable="cmd" outputproperty="changelog" failonerror="false">
+			<arg value="/c" />
+			<arg value='${command}' />
+		</exec>
 	</target>
 
 	<target name="current-version">

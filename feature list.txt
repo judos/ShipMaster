@@ -1,8 +1,8 @@
 new features:
 
+prerender map (land, beach, [docks])
 intelligent ship spawner
-background image for map
-image for ships & rectangle collision boxes
+rectangle collision boxes for ships
 
 docks that only accept one size of ships
 support for sized window mode and different resolutions
@@ -17,6 +17,7 @@ Schiffe docken seitlich an
 implemented:
 ------------------------------------------------------
 
+0.1.0.10
 path drawing for ships leaving the dock
 path drawing goes into the dock and deselects ship
 path drawing stops on land

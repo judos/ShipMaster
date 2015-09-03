@@ -1,0 +1,19 @@
+<project name="test" default="main">
+	<taskdef resource="net/sf/antcontrib/antlib.xml" />
+
+	<property name="propertyFile" value="generated.properties.txt" />
+	<property file="${propertyFile}" />
+
+	<target name="main" depends="">
+		<property environment="env" />
+		<property name="git.command" value='git log --pretty="%h" -n 1' />
+
+		<echo message="${git.command}" />
+		<exec executable="cmd" outputproperty="changelog" failonerror="false">
+			<arg value="/c" />
+			<arg value='${git.command}' />
+		</exec>
+		<echo message="${changelog}" />
+	</target>
+
+</project>
