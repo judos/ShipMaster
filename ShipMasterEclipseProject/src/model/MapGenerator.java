@@ -17,9 +17,9 @@ public class MapGenerator {
 		Map m = new Map();
 		Dock d1 = new Dock(new DirectedPoint(1000, 100, Angle.fromDegree(90)));
 		d1.setAcceptedCargo(CargoType.YELLOW);
-		m.addDock(new Dock(new DirectedPoint(800, 110, Angle.fromDegree(80))));
+		m.addDock(new Dock(new DirectedPoint(600, 110, Angle.fromDegree(80))));
 		m.addDock(d1);
-		m.addDock(new Dock(new DirectedPoint(1200, 110, Angle.fromDegree(100))));
+		m.addDock(new Dock(new DirectedPoint(1400, 110, Angle.fromDegree(100))));
 
 		Cargo c1 = Cargo.getSingleColor(CargoType.YELLOW, 2);
 		Cargo c3 = Cargo.getMixed(8, CargoType.YELLOW, CargoType.GREEN);

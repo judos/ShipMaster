@@ -20,12 +20,12 @@ import ch.judos.generic.graphics.Drawable2d;
  */
 public class Map {
 
-	private ArrayList<Dock>							docks;
-	private ArrayList<Ship>							ships;
-	private Function<Integer, DirectedPoint>	spawnGenerator;
-	private DynamicList<Border>					borders;
-	private DynamicList<Polygon>					landPolygons;
-	private DynamicList<Attention>					attentions;
+	private ArrayList<Dock> docks;
+	private ArrayList<Ship> ships;
+	private Function<Integer, DirectedPoint> spawnGenerator;
+	private DynamicList<Border> borders;
+	private DynamicList<Polygon> landPolygons;
+	private DynamicList<Attention> attentions;
 
 	public Map() {
 		this.docks = new ArrayList<>();
@@ -35,7 +35,6 @@ public class Map {
 		this.attentions = new DynamicList<>();
 	}
 
-	
 	public DynamicList<Attention> getAttentions() {
 		return this.attentions;
 	}
@@ -76,7 +75,7 @@ public class Map {
 		}
 		CargoType[] acceptedCargoArr = cargoTypes.toArray(new CargoType[]{});
 		int cargoAmount = type.getCargoSize();
-		if (RandomJS.getTrueWithProb(33))
+		if (RandomJS.getTrueWithProb(25))
 			return Cargo.getMixed(cargoAmount, acceptedCargoArr);
 		int cargoIndex = RandomJS.getInt(0, cargoTypes.size() - 1);
 		CargoType selectedCargo = acceptedCargoArr[cargoIndex];
