@@ -20,3 +20,7 @@ judos - 2015-08-30 (commit: 2396fc2)
 first build with corrected build version
 _________________________
 				
+0.1.0.10
+path drawing for ships leaving the dock
+path drawing goes into the dock and deselects ship
+path drawing stops on land

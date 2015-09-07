@@ -1,6 +1,10 @@
 new features:
 
-! ships mustn't spawn near leaving ships 
+
++ dock must show their color
++ red container must be exported
++ amount of ships/ containers unloaded
+
 + rectangle collision boxes for ships
 + different sizes of ships (rendered)
 	~ docks that only accept one size of ships
@@ -10,14 +14,5 @@ new features:
 - support for sized window mode and different resolutions
 
 - animation beim entladen der container
-  frachtschiffe mit flüssigladung (e.g. Öl)
+  frachtschiffe mit flÃ¼ssigladung (e.g. Ã¶l)
 - container zwischelagerung und weitertransport (e.g. nummern)
-
-------------------------------------------------------
-implemented:
-------------------------------------------------------
-
-0.1.0.10
-path drawing for ships leaving the dock
-path drawing goes into the dock and deselects ship
-path drawing stops on land
