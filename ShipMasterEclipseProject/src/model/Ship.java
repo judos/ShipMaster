@@ -2,10 +2,12 @@ package model;
 
 import java.awt.Point;
 import java.util.ArrayList;
+
 import ch.judos.generic.data.geometry.Angle;
 import ch.judos.generic.data.geometry.DirectedPoint;
 import ch.judos.generic.data.geometry.PointF;
 import ch.judos.generic.data.geometry.PointI;
+import controller.Game;
 
 /**
  * @since 14.05.2015
@@ -13,20 +15,20 @@ import ch.judos.generic.data.geometry.PointI;
  */
 public class Ship {
 
-	public static final int		dangerRadius	= 10;
+	public static final int dangerRadius = 10;
 
-	private PointF					point;
-	private Angle					direction;
-	private ShipType				type;
-	private ArrayList<PointI>	path;
-	private boolean				isInDanger;
-	private Cargo					cargo;
+	private PointF point;
+	private Angle direction;
+	private ShipType type;
+	private ArrayList<PointI> path;
+	private boolean isInDanger;
+	private Cargo cargo;
 
-	private Dock					targetDock;
+	private Dock targetDock;
 
-	private boolean				isStopped;
+	private boolean isStopped;
 
-	private boolean				canDock;
+	private boolean canDock;
 
 	public Ship(DirectedPoint point, ShipType type, Cargo cargo) {
 		this.point = point.getPointF();
@@ -119,6 +121,7 @@ public class Ship {
 			return;
 		boolean didUnload = this.targetDock.unload(this.cargo);
 		if (didUnload) {
+			Game.containersUnloaded++;
 			if (!this.targetDock.canAccept(this.cargo)) {
 				this.direction = this.targetDock.getDirection();
 				this.targetDock = null;

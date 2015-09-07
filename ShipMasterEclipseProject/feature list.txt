@@ -1,10 +1,6 @@
 new features:
 
-
-+ dock must show their color
 + red container must be exported
-+ amount of ships/ containers unloaded
-
 + rectangle collision boxes for ships
 + different sizes of ships (rendered)
 	~ docks that only accept one size of ships

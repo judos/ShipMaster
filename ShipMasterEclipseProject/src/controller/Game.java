@@ -9,31 +9,33 @@ import view.Gui;
  */
 public class Game {
 
-	public static final int			FPS	= 60;
+	public static final int FPS = 60;
 
-	private Map							map;
-	private Gui							gui;
-	private MouseController			mouseController;
-	private CollisionController	collisionController;
-	private ShipController			shipController;
-	private boolean					gameIsPaused;
-	private DockingController		dockingController;
-	private UnloadingController	unloadingController;
-	private SpawnShipController	spawnShipController;
+	private Map map;
+	private Gui gui;
+	private MouseController mouseController;
+	private CollisionController collisionController;
+	private ShipController shipController;
+	private boolean gameIsPaused;
+	private DockingController dockingController;
+	private UnloadingController unloadingController;
+	private SpawnShipController spawnShipController;
 
-	private AttentionController	attentionController;
-	private double						gameTime;
+	private AttentionController attentionController;
+	private double gameTime;
 
-	private static Game				instance;
+	private static Game instance;
+
+	public static int containersUnloaded;
 
 	public static Game initializeGame(Map m, Gui gui) {
 		if (instance != null)
 			throw new RuntimeException("Game can only be initialized once");
 		return instance = new Game(m, gui);
 	}
-	
+
 	public static double getGameTime() {
-		if (instance==null)
+		if (instance == null)
 			return 0;
 		return instance.gameTime;
 	}

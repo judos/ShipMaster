@@ -12,6 +12,7 @@ import model.Ship;
 import ch.judos.generic.data.geometry.DirectedPoint;
 import ch.judos.generic.data.geometry.PointI;
 import ch.judos.generic.graphics.Drawable2d;
+import controller.Game;
 
 /**
  * @since 14.05.2015
@@ -64,7 +65,8 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 		int ships = this.map.getShips().size();
 		g.setColor(Color.white);
 		g.setFont(text);
-		g.drawString("Ships: " + ships, 20, 20);
+		g.drawString("Ships around: " + ships, 20, 20);
+		g.drawString("Containers unloaded: " + Game.containersUnloaded, 20, 50);
 	}
 
 	private void drawAttentionSigns(Graphics2D g) {
@@ -151,23 +153,30 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 
 	private void drawDocks(Graphics2D g) {
 		AffineTransform transformOriginal = g.getTransform();
-		TexturePaint grassPaint = new TexturePaint(rock, new Rectangle(0, 0, rock.getWidth(),
+		TexturePaint rockPaint = new TexturePaint(rock, new Rectangle(0, 0, rock.getWidth(),
 			rock.getHeight()));
-		g.setPaint(grassPaint);
 
 		for (Dock d : this.map.getDocks()) {
-
+			Color c = d.getColor();
+			c = new Color(c.getRed(), c.getGreen(), c.getBlue(), 128);
 			DirectedPoint position = d.getPoint();
 
 			g.translate(position.getX(), position.getY());
 			g.rotate(position.getAAngle().getRadian());
 
-			g.drawRect(0, 0, 1, 1);
-			g.fillRect(-50, -50, 100, 10);
-			g.fillRect(-50, -50, 10, 100);
-			g.fillRect(-50, 40, 100, 10);
+			g.setPaint(rockPaint);
+			drawDockRects(g);
+			g.setColor(c);
+			drawDockRects(g);
+
 			g.setTransform(transformOriginal);
 		}
+	}
+
+	private void drawDockRects(Graphics2D g) {
+		g.fillRect(-50, -50, 100, 10);
+		g.fillRect(-50, -50, 10, 100);
+		g.fillRect(-50, 40, 100, 10);
 	}
 
 }

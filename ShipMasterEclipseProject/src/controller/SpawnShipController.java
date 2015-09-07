@@ -13,7 +13,7 @@ import ch.judos.generic.data.geometry.PointI;
  */
 public class SpawnShipController {
 
-	private static final float spawnShipEveryXSec = 7;
+	private static final float spawnShipEveryXSec = 6.5f;
 	private static final int dontSpawnNearerThanXPixelsToShip = 200;
 
 	private Map map;
