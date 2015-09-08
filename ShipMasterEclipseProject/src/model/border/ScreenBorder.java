@@ -39,7 +39,7 @@ public class ScreenBorder extends Border {
 
 	@Override
 	public boolean shipIsAllowedToCross(Ship ship) {
-		return ship.getCargo().isEmpty();
+		return ship.getCargo().isAllowedToBeExported();
 	}
 
 	@Override

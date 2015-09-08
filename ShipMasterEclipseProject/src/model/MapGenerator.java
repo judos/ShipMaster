@@ -3,6 +3,7 @@ package model;
 import model.border.ScreenBorder;
 import model.border.ScreenSide;
 import model.border.ScreenSideIntervall;
+import ch.judos.generic.data.DynHashSet;
 import ch.judos.generic.data.geometry.Angle;
 import ch.judos.generic.data.geometry.DirectedPoint;
 import ch.judos.generic.data.geometry.PointI;
@@ -21,9 +22,12 @@ public class MapGenerator {
 		m.addDock(d1);
 		m.addDock(new Dock(new DirectedPoint(1400, 110, Angle.fromDegree(100))));
 
-		Cargo c1 = Cargo.getSingleColor(CargoType.YELLOW, 2);
-		Cargo c3 = Cargo.getMixed(8, CargoType.YELLOW, CargoType.GREEN);
-		Cargo c2 = Cargo.getSingleColor(CargoType.PURPLE, 1);
+		DynHashSet<CargoType> accepted = new DynHashSet<CargoType>(CargoType.YELLOW,
+			CargoType.GREEN);
+
+		Cargo c1 = Cargo.getSingleColor(2, accepted);
+		Cargo c3 = Cargo.getMixed(8, accepted);
+		Cargo c2 = Cargo.getSingleColor(1, accepted);
 
 		m.addShip(new Ship(new DirectedPoint(500, 300, Angle.fromDegree(270)),
 			ShipType.MEDIUM, c3));

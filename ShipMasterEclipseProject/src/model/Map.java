@@ -69,17 +69,14 @@ public class Map {
 	}
 
 	public Cargo generateCargo(ShipType type) {
-		HashSet<CargoType> cargoTypes = new HashSet<>();
+		HashSet<CargoType> acceptedCargoTypes = new HashSet<>();
 		for (Dock d : this.docks) {
-			cargoTypes.addAll(d.getAcceptedCargo());
+			acceptedCargoTypes.addAll(d.getAcceptedCargo());
 		}
-		CargoType[] acceptedCargoArr = cargoTypes.toArray(new CargoType[]{});
 		int cargoAmount = type.getCargoSize();
 		if (RandomJS.getTrueWithProb(25))
-			return Cargo.getMixed(cargoAmount, acceptedCargoArr);
-		int cargoIndex = RandomJS.getInt(0, cargoTypes.size() - 1);
-		CargoType selectedCargo = acceptedCargoArr[cargoIndex];
-		return Cargo.getSingleColor(selectedCargo, cargoAmount);
+			return Cargo.getMixed(cargoAmount, acceptedCargoTypes);
+		return Cargo.getSingleColor(cargoAmount, acceptedCargoTypes);
 	}
 
 	public void setSpawnGenerator(Function<Integer, DirectedPoint> generator) {
