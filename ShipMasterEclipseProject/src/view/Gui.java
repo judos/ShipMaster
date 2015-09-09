@@ -16,11 +16,11 @@ import ch.judos.generic.graphics.fullscreen.FullScreen;
  */
 public class Gui implements Drawable2d {
 
-	GuiFrame						frame;
-	private Timer				timer;
-	private Drawable2d		drawable;
-	private GraphicsDevice	deviceUsed;
-	Runnable						update;
+	GuiFrame frame;
+	private Timer timer;
+	private Drawable2d drawable;
+	private GraphicsDevice deviceUsed;
+	Runnable update;
 
 	public Gui(Optional<Runnable> onQuit) {
 		GraphicsDevice[] dev = FullScreen.getDevices();
@@ -58,11 +58,23 @@ public class Gui implements Drawable2d {
 	public void startFullScreen(int fps) {
 		this.frame.setUndecorated(true);
 		this.deviceUsed.setFullScreenWindow(this.frame);
+		// workaround: sometimes after loosing focus, no input works anymore on
+		// the frame
+		// note: still the case for double-screen setups on windows
+		this.frame.setVisible(false);
+		this.frame.setVisible(true);
+		// end of workaround
+
 		this.frame.createBufferStrategy(2);
 		startViewWithoutOpeningFrame(fps);
 	}
 	public void startView(int fps) {
 		this.frame.openFrame(true);
+		startViewWithoutOpeningFrame(fps);
+	}
+
+	public void startViewUndecorated(int fps) {
+		this.frame.openFrame(false);
 		startViewWithoutOpeningFrame(fps);
 	}
 
@@ -124,7 +136,7 @@ public class Gui implements Drawable2d {
 		return new InputProvider() {
 			@Override
 			public void addMouseListener(MouseListener m) {
-				Gui.this.frame.getContentPane().addMouseListener(m);
+				Gui.this.frame.addMouseListener(m);
 			}
 
 			@Override
@@ -134,7 +146,7 @@ public class Gui implements Drawable2d {
 
 			@Override
 			public void addMouseWheelListener(MouseWheelListener m) {
-				Gui.this.frame.getContentPane().addMouseWheelListener(m);
+				Gui.this.frame.addMouseWheelListener(m);
 			}
 
 		};

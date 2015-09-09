@@ -63,8 +63,8 @@ public class Game {
 
 	public void start() {
 		this.gui.setDrawable(this.map.getDrawable());
-		this.gui.startFullScreen(FPS);
-		// this.gui.startView(FPS);
+		// this.gui.startFullScreen(FPS);
+		this.gui.startViewUndecorated(FPS);
 		this.gui.setUpdate(this::updateBeforeDrawing);
 	}
 
