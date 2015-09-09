@@ -15,6 +15,7 @@ public class SpawnShipController {
 
 	private static final float spawnShipEveryXSec = 6.5f;
 	private static final int dontSpawnNearerThanXPixelsToShip = 200;
+	private static final boolean shouldSpawnShips = false;
 
 	private Map map;
 
@@ -27,7 +28,7 @@ public class SpawnShipController {
 
 	public void update() {
 		this.timer++;
-		if (this.timer > Game.FPS * spawnShipEveryXSec) {
+		if (this.timer > Game.FPS * spawnShipEveryXSec && shouldSpawnShips) {
 			this.timer = 0;
 
 			ShipType type = ShipType.getRandom();

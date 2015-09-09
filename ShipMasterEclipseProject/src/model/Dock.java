@@ -69,21 +69,24 @@ public class Dock {
 	 * @param cargo
 	 * @return did unload something
 	 */
-	public boolean unload(Cargo cargo) {
+	public boolean actionOnCargoWithTimer(Cargo cargo) {
 		boolean didUnloadSomething = false;
 		this.unloadingTimer++;
 		if (this.unloadingTimer >= Game.FPS / this.type.getUnloadPerSecond()) {
-
-			for (int i = 0; i < cargo.getSize(); i++) {
-				if (canUnload(cargo.getTypeAt(i))) {
-					cargo.setEmpty(i);
-					didUnloadSomething = true;
-					break;
-				}
-			}
 			this.unloadingTimer = 0;
+			return doSingleActionOnCargo(cargo);
 		}
 		return didUnloadSomething;
+	}
+
+	protected boolean doSingleActionOnCargo(Cargo cargo) {
+		for (int i = 0; i < cargo.getSize(); i++) {
+			if (canUnload(cargo.getTypeAt(i))) {
+				cargo.setEmpty(i);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean isShipInRange(Ship s) {

@@ -18,7 +18,7 @@ public class DockingController {
 
 	public void update() {
 		for (Ship s : this.map.getShips()) {
-			if (s.canDock() && s.hasCargo()) {
+			if (s.canDock()) {
 				for (Dock d : this.map.getDocks()) {
 					if (d.canAccept(s.getCargo()) && d.isShipInRange(s)) {
 						s.startDocking(d);

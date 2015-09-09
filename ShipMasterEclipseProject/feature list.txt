@@ -1,6 +1,8 @@
 new features:
 
 + red container must be exported
+  ~ ContainerStack overfill otherwisse
+  ~ draw ContainerStack
 + rectangle collision boxes for ships
 + different sizes of ships (rendered)
 	~ docks that only accept one size of ships
@@ -8,7 +10,7 @@ new features:
 ~ prerender map (land, beach, [docks])
 ~ intelligent ship spawner
 - support for sized window mode and different resolutions
-
 - animation beim entladen der container
-  frachtschiffe mit flüssigladung (e.g. öl)
 - container zwischelagerung und weitertransport (e.g. nummern)
+? frachtschiffe mit flüssigladung (e.g. öl)
+? more realistic movement of ships (acceleration)

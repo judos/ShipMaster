@@ -14,7 +14,7 @@ public enum ShipType {
 		return values()[index];
 	}
 
-	private float speed;
+	public float speed;
 	private int size;
 	private int cargoSize;
 

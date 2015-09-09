@@ -26,7 +26,7 @@ public class Game {
 
 	private static Game instance;
 
-	public static int containersUnloaded;
+	public static int containersTransfered;
 
 	public static Game initializeGame(Map m, Gui gui) {
 		if (instance != null)

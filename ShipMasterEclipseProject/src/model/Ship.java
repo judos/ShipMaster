@@ -128,14 +128,14 @@ public class Ship {
 		return false;
 	}
 
-	public void tryUnloading() {
+	public void tryDockAction() {
 		if (this.targetDock == null)
 			return;
 		if (this.path.size() > 0)
 			return;
-		boolean didUnload = this.targetDock.unload(this.cargo);
-		if (didUnload) {
-			Game.containersUnloaded++;
+		boolean didAction = this.targetDock.actionOnCargoWithTimer(this.cargo);
+		if (didAction) {
+			Game.containersTransfered++;
 			if (!this.targetDock.canAccept(this.cargo)) {
 				this.direction = this.targetDock.getDirection();
 				this.targetDock = null;

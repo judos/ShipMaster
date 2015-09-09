@@ -17,7 +17,7 @@ public class UnloadingController {
 
 	public void update() {
 		for (Ship s : this.map.getShips()) {
-			s.tryUnloading();
+			s.tryDockAction();
 		}
 	}
 

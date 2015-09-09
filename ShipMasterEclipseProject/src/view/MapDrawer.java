@@ -66,7 +66,7 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 		g.setColor(Color.white);
 		g.setFont(text);
 		g.drawString("Ships around: " + ships, 20, 20);
-		g.drawString("Containers unloaded: " + Game.containersUnloaded, 20, 50);
+		g.drawString("Containers transfered: " + Game.containersTransfered, 20, 50);
 	}
 
 	private void drawAttentionSigns(Graphics2D g) {

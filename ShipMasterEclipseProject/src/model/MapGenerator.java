@@ -14,6 +14,50 @@ import ch.judos.generic.data.geometry.PointI;
  */
 public class MapGenerator {
 
+	public static Map getMap2() {
+		Map m = new Map();
+		m.addDock(new Dock(new DirectedPoint(800, 110, Angle.fromDegree(80))));
+
+		ContainerStack stack = new ContainerStack();
+		Dock d1 = new LoadingDock(new DirectedPoint(1200, 100, Angle.fromDegree(100)), stack);
+		m.addDock(d1);
+
+		DynHashSet<CargoType> accepted = new DynHashSet<CargoType>(CargoType.YELLOW,
+			CargoType.GREEN);
+
+		Cargo c1 = Cargo.getSingleColor(2, accepted);
+		Cargo c3 = Cargo.getMixed(2, accepted);
+		Cargo c2 = Cargo.getSingleColor(1, accepted);
+
+		m.addShip(new Ship(new DirectedPoint(500, 300, Angle.fromDegree(270)), ShipType.SMALL,
+			c3));
+		// m.addShip(new Ship(new DirectedPoint(700, 1080,
+		// Angle.fromDegree(270)),
+		// ShipType.SMALL, c2));
+		// m.addShip(new Ship(new DirectedPoint(1000, 1080,
+		// Angle.fromDegree(270)),
+		// ShipType.SMALL, c1));
+
+		m.setSpawnGenerator((shipSize) -> {
+			return SpawnLocation.generateSpawnFromBorder(shipSize, new ScreenSideIntervall(
+				ScreenSide.BOTTOM), new ScreenSideIntervall(ScreenSide.LEFT, 150, 1080),
+				new ScreenSideIntervall(ScreenSide.RIGHT, 150, 1080));
+		});
+
+		m.addBorder(ScreenBorder.leftBorder, ScreenBorder.rightBorder, ScreenBorder.topBorder,
+			ScreenBorder.bottomBorder);
+
+		m.addLand(new PointI(2020, 140), new PointI(-100, 140), new PointI(-100, 0),
+			new PointI(2020, 0));
+
+		ShipType.SMALL.speed *= 2;
+		ShipType.MEDIUM.speed *= 2;
+		ShipType.LARGE.speed *= 2;
+		ShipType.EXTRA.speed *= 2;
+
+		return m;
+	}
+
 	public static Map getMap1() {
 		Map m = new Map();
 		Dock d1 = new Dock(new DirectedPoint(1000, 100, Angle.fromDegree(90)));
