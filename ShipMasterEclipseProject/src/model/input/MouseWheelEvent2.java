@@ -8,8 +8,8 @@ import java.awt.event.MouseWheelEvent;
  */
 public class MouseWheelEvent2 {
 
-	protected int		scrollAmount;
-	protected double	rotation;
+	protected int scrollAmount;
+	protected double rotation;
 
 	public MouseWheelEvent2(MouseWheelEvent e) {
 		this.scrollAmount = e.getScrollAmount();

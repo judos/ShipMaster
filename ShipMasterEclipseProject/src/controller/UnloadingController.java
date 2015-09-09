@@ -9,7 +9,7 @@ import model.Ship;
  */
 public class UnloadingController {
 
-	private Map	map;
+	private Map map;
 
 	public UnloadingController(Map map) {
 		this.map = map;

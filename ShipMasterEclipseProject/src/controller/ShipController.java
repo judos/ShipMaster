@@ -14,7 +14,7 @@ import ch.judos.generic.data.geometry.PointF;
  */
 public class ShipController {
 
-	private Map	map;
+	private Map map;
 
 	public ShipController(Map map) {
 		this.map = map;
@@ -30,7 +30,8 @@ public class ShipController {
 				boolean canMove = true;
 				if (!ship.isDocking()) {
 					for (Border b : this.map.getBorders()) {
-						if (b.positionUpdateWouldCross(ship.getPoint(), next, Optional.of(ship))) {
+						if (b.positionUpdateWouldCross(ship.getPoint(), next, Optional
+							.of(ship))) {
 							if (b.shipIsAllowedToCross(ship)) {
 								if (b.shouldShipBeRemovedAfterCrossing())
 									it.remove();

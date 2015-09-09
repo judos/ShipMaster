@@ -7,8 +7,8 @@ import java.awt.event.KeyEvent;
  * @author Julian Schelker
  */
 public class KeyEvent2 {
-	private int			keyCode;
-	private InputType	type;
+	private int keyCode;
+	private InputType type;
 
 	public KeyEvent2(InputType type, KeyEvent e) {
 		this.type = type;

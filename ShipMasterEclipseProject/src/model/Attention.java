@@ -9,11 +9,11 @@ import controller.Game;
  */
 public class Attention {
 
-	public static final int		signSize		= 50;
-	private static final float	showTimeS	= 2;
+	public static final int signSize = 50;
+	private static final float showTimeS = 2;
 
-	private PointI					position;
-	private double					created;
+	private PointI position;
+	private double created;
 
 	public Attention(PointI position) {
 		if (position.x < 0)

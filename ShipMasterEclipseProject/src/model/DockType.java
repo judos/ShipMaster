@@ -8,7 +8,7 @@ public enum DockType {
 
 	NORMAL(2f), FAST(1.5f);
 
-	private float	unloadPerSecond;
+	private float unloadPerSecond;
 
 	private DockType(float unloadPerSecond) {
 		this.unloadPerSecond = unloadPerSecond;

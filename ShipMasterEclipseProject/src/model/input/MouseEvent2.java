@@ -10,10 +10,10 @@ import ch.judos.generic.data.geometry.PointI;
  */
 public class MouseEvent2 {
 
-	protected InputType	type;
-	protected PointI		screenPosition;
-	protected int			button;
-	protected PointI		mapPosition;
+	protected InputType type;
+	protected PointI screenPosition;
+	protected int button;
+	protected PointI mapPosition;
 
 	public MouseEvent2(InputType type, MouseEvent event, PointI onMap) {
 		this(type, new PointI(event.getPoint()), onMap, event.getButton());

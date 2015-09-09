@@ -18,7 +18,7 @@ import ch.judos.generic.data.geometry.PointI;
  */
 public abstract class Border {
 
-	protected Angle	normalAngle;
+	protected Angle normalAngle;
 
 	public Border(Angle normal) {
 		this.normalAngle = normal;
@@ -29,7 +29,8 @@ public abstract class Border {
 	}
 
 	/**
-	 * check whether the ship with this cargo load is allowed to cross the border
+	 * check whether the ship with this cargo load is allowed to cross the
+	 * border
 	 * 
 	 * @param ship
 	 * @return
@@ -44,5 +45,5 @@ public abstract class Border {
 		ship.setDirection(target);
 	}
 
-	public abstract PointI getClosestPointOnBorderTo(Point point) ;
+	public abstract PointI getClosestPointOnBorderTo(Point point);
 }

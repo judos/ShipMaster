@@ -19,13 +19,13 @@ public class Dock {
 
 	public static final int RADIUS = 60;
 
-	private DirectedPoint		point;
-	private int						unloadingTimer;
+	private DirectedPoint point;
+	private int unloadingTimer;
 
-	private DockType				type;
-	private HashSet<CargoType>	acceptedCargo;
+	private DockType type;
+	private HashSet<CargoType> acceptedCargo;
 
-	private DockLeaveBorder	leaveBorder;
+	private DockLeaveBorder leaveBorder;
 
 	public Dock(DirectedPoint directedPoint) {
 		this(directedPoint, DockType.NORMAL);
@@ -91,7 +91,7 @@ public class Dock {
 		PointI dockPosition = this.point.getPoint();
 		return s.getPoint().distance(dockPosition) < shipSize + Dock.RADIUS;
 	}
-	
+
 	public boolean isPointInRange(Point2D p) {
 		return this.point.getPoint().distance(p) < Dock.RADIUS;
 	}

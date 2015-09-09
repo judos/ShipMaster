@@ -10,7 +10,7 @@ import model.Ship;
  */
 public class DockingController {
 
-	private Map	map;
+	private Map map;
 
 	public DockingController(Map map) {
 		this.map = map;

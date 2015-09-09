@@ -31,10 +31,12 @@ public class MapGenerator {
 
 		m.addShip(new Ship(new DirectedPoint(500, 300, Angle.fromDegree(270)),
 			ShipType.MEDIUM, c3));
-		m.addShip(new Ship(new DirectedPoint(700, 1080, Angle.fromDegree(270)),
-			ShipType.SMALL, c2));
-		m.addShip(new Ship(new DirectedPoint(1000, 1080, Angle.fromDegree(270)),
-			ShipType.SMALL, c1));
+		// m.addShip(new Ship(new DirectedPoint(700, 1080,
+		// Angle.fromDegree(270)),
+		// ShipType.SMALL, c2));
+		// m.addShip(new Ship(new DirectedPoint(1000, 1080,
+		// Angle.fromDegree(270)),
+		// ShipType.SMALL, c1));
 
 		m.setSpawnGenerator((shipSize) -> {
 			return SpawnLocation.generateSpawnFromBorder(shipSize, new ScreenSideIntervall(

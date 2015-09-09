@@ -18,7 +18,7 @@ import ch.judos.generic.data.geometry.PointI;
  */
 public class RestrictionBorder extends Border {
 
-	private LineI	line;
+	private LineI line;
 
 	public RestrictionBorder(PointI start, PointI end) {
 		super(start.getAAngleTo(end).sub(Angle.A_90));
@@ -26,7 +26,8 @@ public class RestrictionBorder extends Border {
 	}
 
 	@Override
-	public boolean positionUpdateWouldCross(Point2D before, Point2D after, Optional<Ship> ship) {
+	public boolean
+		positionUpdateWouldCross(Point2D before, Point2D after, Optional<Ship> ship) {
 		double sideWayDistOutside = this.line.ptLineDistAlongOutside(after);
 		if (Math.abs(sideWayDistOutside) > 3)
 			return false;

@@ -8,7 +8,7 @@ public enum InputType {
 
 	PRESSED_AND_RELEASED(false), PRESS(true), RELEASE(false);
 
-	protected boolean	pressed;
+	protected boolean pressed;
 
 	private InputType(boolean pressed) {
 		this.pressed = pressed;
