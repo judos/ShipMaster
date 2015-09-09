@@ -23,12 +23,12 @@ import ch.judos.generic.data.geometry.PointI;
  */
 public class MouseController extends MouseAdapter {
 
-	private Map			map;
-	private Ship		selectedShip;
+	private Map map;
+	private Ship selectedShip;
 
-	private Component	component;
-	private boolean	startDrawingWhenOutsideDock;
-	private Dock		selectedShipInDock;
+	private Component component;
+	private boolean startDrawingWhenOutsideDock;
+	private Dock selectedShipInDock;
 
 	public MouseController(Map map, Component component) {
 		this.map = map;
@@ -53,6 +53,7 @@ public class MouseController extends MouseAdapter {
 		}
 		if (canSelect != null) {
 			this.selectedShip = canSelect;
+			this.selectedShip.setTargetDockToNull();
 			this.startDrawingWhenOutsideDock = this.selectedShip.isStopped();
 			this.selectedShipInDock = findDockInRangeOf(this.selectedShip.getPoint());
 			this.selectedShip.setStopped(false);
@@ -73,7 +74,9 @@ public class MouseController extends MouseAdapter {
 
 	public void update() {
 		// deselect ship
-		if (this.selectedShip == null || !this.selectedShip.isSelectable()) {
+		if (this.selectedShip == null)
+			return;
+		if (!this.selectedShip.isSelectable()) {
 			this.selectedShip = null;
 			return;
 		}
@@ -85,7 +88,7 @@ public class MouseController extends MouseAdapter {
 			lastPoint = path.get(path.size() - 1);
 		else {
 			lastPoint = this.selectedShip.getPoint().i();
-			if (mousePosition.distance(lastPoint)<20)
+			if (mousePosition.distance(lastPoint) < 20)
 				return;
 		}
 		Dock dockInRange = findDockInRangeOf(mousePosition);
@@ -96,7 +99,6 @@ public class MouseController extends MouseAdapter {
 			return;
 		if (checkUndocking(lastPoint, mousePosition, dockInRange))
 			return;
-
 		if (lastPoint.distance(mousePosition) >= 10)
 			path.add(new PointI(mousePosition));
 	}

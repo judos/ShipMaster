@@ -99,11 +99,16 @@ public class Ship {
 		return this.cargo;
 	}
 
+	public void setTargetDockToNull() {
+		this.targetDock = null;
+	}
+
 	public void startDocking(Dock d) {
-		this.path.clear();
-		this.path.add(d.getPoint().getPoint());
-		this.targetDock = d;
-		this.canDock = false;
+		if (this.path.size() == 0) {
+			this.path.add(d.getPoint().getPoint());
+			this.targetDock = d;
+			this.canDock = false;
+		}
 	}
 
 	public boolean isDocking() {
@@ -111,7 +116,16 @@ public class Ship {
 	}
 
 	public boolean isSelectable() {
-		return this.targetDock == null;
+		// is selectable when no target is set
+		if (this.targetDock == null)
+			return true;
+		// if a target dock is set it is selectable as long as it has not
+		// stopped in the dock
+		// note: targetDock will be set back to null when dock is complete with
+		// this ship
+		if (!this.isStopped)
+			return true;
+		return false;
 	}
 
 	public void tryUnloading() {

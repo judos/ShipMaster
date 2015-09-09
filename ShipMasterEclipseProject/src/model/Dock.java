@@ -17,7 +17,7 @@ import controller.Game;
  */
 public class Dock {
 
-	public static final int		RADIUS	= 70;
+	public static final int RADIUS = 60;
 
 	private DirectedPoint		point;
 	private int						unloadingTimer;
