@@ -1,5 +1,8 @@
 package controller;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import model.Map;
 import view.Gui;
 
@@ -7,7 +10,7 @@ import view.Gui;
  * @since 14.05.2015
  * @author Julian Schelker
  */
-public class Game {
+public class Game extends KeyAdapter {
 
 	public static final int FPS = 60;
 
@@ -17,6 +20,7 @@ public class Game {
 	private CollisionController collisionController;
 	private ShipController shipController;
 	private boolean gameIsPaused;
+	private boolean slowMotion;
 	private DockingController dockingController;
 	private UnloadingController unloadingController;
 	private SpawnShipController spawnShipController;
@@ -44,9 +48,11 @@ public class Game {
 		this.map = m;
 		this.gui = gui;
 		this.gameIsPaused = false;
+		this.slowMotion = false;
 
 		this.mouseController = new MouseController(this.map, gui.getComponent());
 		this.gui.getInputProvider().addMouseListener(this.mouseController);
+		this.gui.getInputProvider().addKeyListener(this);
 
 		this.collisionController = new CollisionController(this.map, this::pauseGame);
 		this.shipController = new ShipController(this.map);
@@ -68,18 +74,30 @@ public class Game {
 		this.gui.setUpdate(this::updateBeforeDrawing);
 	}
 
+	int x = 0;
 	private void updateBeforeDrawing() {
+
 		if (!this.gameIsPaused) {
 			this.mouseController.update();
-			this.shipController.update();
+
+			if (this.slowMotion && x++ < 25)
+				return;
+			x = 0;
+
 			this.dockingController.update();
+			this.shipController.update();
 			this.unloadingController.update();
 			this.spawnShipController.update();
 			this.attentionController.update();
 			this.gameTime += 1. / FPS;
 		}
 		this.collisionController.update(this.gameIsPaused);
+	}
 
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_SPACE)
+			this.slowMotion = !this.slowMotion;
 	}
 
 }

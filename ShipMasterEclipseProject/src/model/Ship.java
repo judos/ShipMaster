@@ -104,11 +104,10 @@ public class Ship {
 	}
 
 	public void startDocking(Dock d) {
-		if (this.path.size() == 0) {
-			this.path.add(d.getPoint().getPoint());
-			this.targetDock = d;
-			this.canDock = false;
-		}
+		this.path.clear();
+		this.path.add(d.getPoint().getPoint());
+		this.targetDock = d;
+		this.canDock = false;
 	}
 
 	public boolean isDocking() {
