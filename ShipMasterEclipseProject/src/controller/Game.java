@@ -28,6 +28,8 @@ public class Game extends KeyAdapter {
 	private AttentionController attentionController;
 	private double gameTime;
 
+	private UpdateController updateController;
+
 	private static Game instance;
 
 	public static int containersTransfered;
@@ -60,6 +62,7 @@ public class Game extends KeyAdapter {
 		this.unloadingController = new UnloadingController(this.map);
 		this.spawnShipController = new SpawnShipController(this.map);
 		this.attentionController = new AttentionController(this.map);
+		this.updateController = new UpdateController(this.map);
 		this.gameTime = 0d;
 	}
 
@@ -89,6 +92,7 @@ public class Game extends KeyAdapter {
 			this.unloadingController.update();
 			this.spawnShipController.update();
 			this.attentionController.update();
+			this.updateController.update();
 			this.gameTime += 1. / FPS;
 		}
 		this.collisionController.update(this.gameIsPaused);

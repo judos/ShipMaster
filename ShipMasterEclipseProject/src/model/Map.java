@@ -26,17 +26,23 @@ public class Map {
 	private DynamicList<Border> borders;
 	private DynamicList<Polygon> landPolygons;
 	private DynamicList<Attention> attentions;
+	private HashSet<ContainerStack> stacks;
 
 	public Map() {
 		this.docks = new ArrayList<>();
 		this.ships = new ArrayList<>();
 		this.borders = new DynamicList<>();
+		this.stacks = new HashSet<>();
 		this.landPolygons = new DynamicList<>();
 		this.attentions = new DynamicList<>();
 	}
 
 	public DynamicList<Attention> getAttentions() {
 		return this.attentions;
+	}
+
+	public HashSet<ContainerStack> getStacks() {
+		return this.stacks;
 	}
 
 	public DynamicList<Polygon> getLandPolygons() {
@@ -50,6 +56,9 @@ public class Map {
 
 	void addDock(Dock dock) {
 		this.docks.add(dock);
+		if (dock instanceof LoadingDock) {
+			this.stacks.add(((LoadingDock) dock).stack);
+		}
 	}
 
 	public Drawable2d getDrawable() {

@@ -1,11 +1,9 @@
 new features:
 
-+ red container must be exported
-  ~ ContainerStack overfill otherwisse
-  ~ draw ContainerStack
 + rectangle collision boxes for ships
 + different sizes of ships (rendered)
 	~ docks that only accept one size of ships
++ improve graphics: floor, container
 + Docktyp: Schiffe docken seitlich an
 ~ prerender map (land, beach, [docks])
 ~ intelligent ship spawner

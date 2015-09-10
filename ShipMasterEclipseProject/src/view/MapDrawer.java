@@ -5,13 +5,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 
-import model.Attention;
-import model.Dock;
-import model.Map;
-import model.Ship;
+import model.*;
 import ch.judos.generic.data.geometry.DirectedPoint;
 import ch.judos.generic.data.geometry.PointI;
 import ch.judos.generic.graphics.Drawable2d;
+import ch.judos.generic.math.MathJS;
 import controller.Game;
 
 /**
@@ -57,6 +55,7 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 		drawBorders(g);
 
 		drawDocks(g);
+		drawContainerStacks(g);
 		drawShipPaths(g);
 		drawShipInDanger(g);
 		drawShips(g);
@@ -170,6 +169,36 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 			drawDockRects(g);
 
 			g.setTransform(transformOriginal);
+		}
+	}
+
+	private void drawContainerStacks(Graphics2D g) {
+		AffineTransform t = g.getTransform();
+		Dimension containerSize = new Dimension(30, 10);
+		for (ContainerStack stack : this.map.getStacks()) {
+			PointI pos = stack.getPosition();
+			g.translate(pos.x, pos.y);
+
+			int square = MathJS.ceil(Math.sqrt((float) stack.getMaxSize() / 3));
+			int width = square;
+			int height = square * 3;
+			float f = 1.2f; // how much space between Containers
+			g.translate(-(float) width / 2. * (f * containerSize.width), -(float) height / 2.
+				* (f * containerSize.height));
+			g.setColor(stack.getColor());
+			int amount = 1;
+			outer : for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width; x++) {
+					if (amount > stack.getSize())
+						break outer;
+					g.fillRect((int) (x * (containerSize.width * 1.2)),
+						(int) (y * (containerSize.height * 1.2)), containerSize.width,
+						containerSize.height);
+					amount++;
+				}
+			}
+
+			g.setTransform(t);
 		}
 	}
 

@@ -18,8 +18,10 @@ public class MapGenerator {
 		Map m = new Map();
 		m.addDock(new Dock(new DirectedPoint(800, 110, Angle.fromDegree(80))));
 
-		ContainerStack stack = new ContainerStack();
-		Dock d1 = new LoadingDock(new DirectedPoint(1200, 100, Angle.fromDegree(100)), stack);
+		ContainerStack stack = new ContainerStack(10, (ContainerStack s) -> {
+		}, new PointI(1100, 100));
+		LoadingDock d1 = new LoadingDock(new DirectedPoint(1200, 100, Angle.fromDegree(100)),
+			stack);
 		m.addDock(d1);
 
 		DynHashSet<CargoType> accepted = new DynHashSet<CargoType>(CargoType.YELLOW,
