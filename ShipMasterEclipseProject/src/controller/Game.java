@@ -34,7 +34,7 @@ public class Game extends KeyAdapter {
 
 	public static int containersTransfered;
 
-	public static Game initializeGame(Map m, Gui gui) {
+	public synchronized static Game initializeGame(Map m, Gui gui) {
 		if (instance != null)
 			throw new RuntimeException("Game can only be initialized once");
 		return instance = new Game(m, gui);
@@ -62,7 +62,7 @@ public class Game extends KeyAdapter {
 		this.unloadingController = new UnloadingController(this.map);
 		this.spawnShipController = new SpawnShipController(this.map);
 		this.attentionController = new AttentionController(this.map);
-		this.updateController = new UpdateController(this.map);
+		this.updateController = new UpdateController(this.map, this::pauseGame);
 		this.gameTime = 0d;
 	}
 
@@ -79,7 +79,6 @@ public class Game extends KeyAdapter {
 
 	int x = 0;
 	private void updateBeforeDrawing() {
-
 		if (!this.gameIsPaused) {
 			this.mouseController.update();
 

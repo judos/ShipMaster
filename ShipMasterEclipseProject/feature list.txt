@@ -1,5 +1,7 @@
 new features:
 
++ add mouse/key events to event queue which are updated in game loop
+	(prevent concurrent modification exceptions)
 + rectangle collision boxes for ships
 + different sizes of ships (rendered)
 	~ docks that only accept one size of ships

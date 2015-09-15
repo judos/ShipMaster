@@ -11,9 +11,11 @@ import ch.judos.generic.data.DynHashSet;
  */
 public enum CargoType {
 
-	YELLOW(Color.yellow, Direction.canBeImported), PURPLE(new Color(170, 80, 170),
-		Direction.canBeImported), GREEN(Color.green, Direction.canBeImported), NONE(new Color(
-		0, 0, 0, 0), Direction.canBeExported), RED(Color.red, Direction.canBeExported);
+	YELLOW(Color.yellow, Direction.canBeImported),
+	PURPLE(new Color(170, 80, 170), Direction.canBeImported),
+	GREEN(Color.green, Direction.canBeImported),
+	NONE(new Color(0, 0, 0, 0), Direction.canBeExported),
+	RED(Color.red, Direction.canBeExported);
 
 	public static HashSet<CargoType> getAllCargoTypes() {
 		HashSet<CargoType> result = new DynHashSet<>(CargoType.values());

@@ -15,7 +15,7 @@ public class SpawnShipController {
 
 	private static final float spawnShipEveryXSec = 6.5f;
 	private static final int dontSpawnNearerThanXPixelsToShip = 200;
-	private static final boolean shouldSpawnShips = false;
+	private static final boolean shouldSpawnShips = true;
 
 	private Map map;
 

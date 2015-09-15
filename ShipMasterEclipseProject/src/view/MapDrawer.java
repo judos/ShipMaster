@@ -9,6 +9,7 @@ import model.*;
 import ch.judos.generic.data.geometry.DirectedPoint;
 import ch.judos.generic.data.geometry.PointI;
 import ch.judos.generic.graphics.Drawable2d;
+import ch.judos.generic.graphics.drawing.TexturePaintJS;
 import ch.judos.generic.math.MathJS;
 import controller.Game;
 
@@ -16,26 +17,15 @@ import controller.Game;
  * @since 14.05.2015
  * @author Julian Schelker
  */
-public class MapDrawer extends DrawingClass implements Drawable2d {
+public class MapDrawer implements Drawable2d {
 
 	private Map map;
 	private int waterIndex;
 	private static Font text = new Font("Arial", 0, 24);
-	private static BufferedImage grassTex = load("grass.png");
-	private static BufferedImage[] waterTex = new BufferedImage[16];
-	private static BufferedImage rock = load("rockwall.png");
-	private static BufferedImage beach = load("sand.png");
 
 	public MapDrawer(Map map) {
 		this.map = map;
 		this.waterIndex = 0;
-
-		BufferedImage water = load("water2-q40.jpg");
-		for (int y = 0; y < 4; y++) {
-			for (int x = 0; x < 4; x++) {
-				waterTex[y * 4 + x] = water.getSubimage(x * 1024, y * 1024, 1024, 1024);
-			}
-		}
 	}
 
 	@Override
@@ -45,15 +35,13 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 		this.waterIndex = this.waterIndex % (int) (16 * slowed);
 
 		int actualIndex = (int) ((float) this.waterIndex / slowed);
-		TexturePaint waterPaint = new TexturePaint(waterTex[actualIndex], new Rectangle(0, 0,
-			1024, 1024));
+		TexturePaint waterPaint = TexturePaintJS.getPaintForImage(Assets.water[actualIndex]);
+		// timer.printMS("set texturepaint");
 		g.setPaint(waterPaint);
 		g.fillRect(0, 0, 1920, 1080);
-
 		drawLand(g);
 
 		drawBorders(g);
-
 		drawDocks(g);
 		drawContainerStacks(g);
 		drawShipPaths(g);
@@ -80,7 +68,7 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 	}
 
 	private void drawLand(Graphics2D g) {
-		TexturePaint grassPaint = new TexturePaint(grassTex, new Rectangle(0, 0, 512, 512));
+		TexturePaint grassPaint = TexturePaintJS.getPaintForImage(Assets.grass);
 		g.setPaint(grassPaint);
 		Area a = new Area();
 		for (Polygon poly : this.map.getLandPolygons()) {
@@ -152,8 +140,7 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 
 	private void drawDocks(Graphics2D g) {
 		AffineTransform transformOriginal = g.getTransform();
-		TexturePaint rockPaint = new TexturePaint(rock, new Rectangle(0, 0, rock.getWidth(),
-			rock.getHeight()));
+		TexturePaint rockPaint = TexturePaintJS.getPaintForImage(Assets.rock);
 
 		for (Dock d : this.map.getDocks()) {
 			Color c = d.getColor();
@@ -174,7 +161,7 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 
 	private void drawContainerStacks(Graphics2D g) {
 		AffineTransform t = g.getTransform();
-		Dimension containerSize = new Dimension(30, 10);
+		Dimension containerSize = Assets.dimensionOf(Assets.container);
 		for (ContainerStack stack : this.map.getStacks()) {
 			PointI pos = stack.getPosition();
 			g.translate(pos.x, pos.y);
@@ -185,19 +172,17 @@ public class MapDrawer extends DrawingClass implements Drawable2d {
 			float f = 1.2f; // how much space between Containers
 			g.translate(-(float) width / 2. * (f * containerSize.width), -(float) height / 2.
 				* (f * containerSize.height));
-			g.setColor(stack.getColor());
+			BufferedImage container = Assets.containers.get(stack.getColor());
 			int amount = 1;
 			outer : for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
 					if (amount > stack.getSize())
 						break outer;
-					g.fillRect((int) (x * (containerSize.width * 1.2)),
-						(int) (y * (containerSize.height * 1.2)), containerSize.width,
-						containerSize.height);
+					g.drawImage(container, (int) (x * (containerSize.width * 1.2)),
+						(int) (y * (containerSize.height * 1.2)), null);
 					amount++;
 				}
 			}
-
 			g.setTransform(t);
 		}
 	}

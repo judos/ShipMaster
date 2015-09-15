@@ -66,4 +66,8 @@ public class ContainerStack {
 		return CargoType.RED.getColor();
 	}
 
+	public boolean isOverloaded() {
+		return this.size > this.maxSize;
+	}
+
 }

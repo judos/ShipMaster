@@ -10,14 +10,18 @@ import model.Map;
 public class UpdateController {
 
 	private Map map;
+	private Runnable actionContainerStackFull;
 
-	public UpdateController(Map map) {
+	public UpdateController(Map map, Runnable actionContainerStackFull) {
 		this.map = map;
+		this.actionContainerStackFull = actionContainerStackFull;
 	}
 
 	public void update() {
 		for (ContainerStack stack : this.map.getStacks()) {
 			stack.update();
+			if (stack.isOverloaded())
+				this.actionContainerStackFull.run();
 		}
 	}
 
