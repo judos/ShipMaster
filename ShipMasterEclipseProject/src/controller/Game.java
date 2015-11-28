@@ -72,8 +72,9 @@ public class Game extends KeyAdapter {
 
 	public void start() {
 		this.gui.setDrawable(this.map.getDrawable());
-		// this.gui.startFullScreen(FPS);
-		this.gui.startViewUndecorated(FPS);
+		this.gui.startFullScreen(FPS);
+		// this.gui.startViewUndecorated(FPS);
+		// this.gui.startView(FPS);
 		this.gui.setUpdate(this::updateBeforeDrawing);
 	}
 

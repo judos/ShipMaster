@@ -10,6 +10,8 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 import model.CargoType;
+import ch.judos.generic.control.Log;
+import ch.judos.generic.control.TimerJS;
 import ch.judos.generic.graphics.filter.ColorTintFilter;
 
 /**
@@ -71,7 +73,7 @@ public class Assets {
 	 * unsynchronized, unchecked method
 	 */
 	private static void loadAllAssets() {
-		System.out.println("load assets");
+		TimerJS loadAssestsTimer = new TimerJS();
 		grass = load("grass.png");
 		water = new BufferedImage[16];
 		rock = load("rockwall.png");
@@ -89,6 +91,7 @@ public class Assets {
 			ColorTintFilter filter = new ColorTintFilter(c, 0.75f);
 			containers.put(c, filter.filter(container));
 		}
+		Log.info("loading Assets: " + loadAssestsTimer.getMS() + " ms");
 	}
 
 	public static BufferedImage load(String name) {

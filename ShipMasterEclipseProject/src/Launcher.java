@@ -6,6 +6,7 @@ import model.Map;
 import model.MapGenerator;
 import view.Assets;
 import view.Gui;
+import ch.judos.generic.control.Log;
 import controller.Game;
 
 /**
@@ -16,6 +17,8 @@ public class Launcher {
 	public static void main(String[] args) {
 		System.setProperty("sun.java2d.opengl", "True");
 		System.setProperty("sun.java2d.accthreshold", "0");
+
+		Log.setLevel(Log.Level.INFO);
 
 		Launcher launcher = new Launcher();
 		SwingUtilities.invokeLater(launcher::init);

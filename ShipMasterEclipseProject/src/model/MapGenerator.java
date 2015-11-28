@@ -55,7 +55,6 @@ public class MapGenerator {
 		ShipType.SMALL.speed *= 2;
 		ShipType.MEDIUM.speed *= 2;
 		ShipType.LARGE.speed *= 2;
-		ShipType.EXTRA.speed *= 2;
 
 		return m;
 	}
