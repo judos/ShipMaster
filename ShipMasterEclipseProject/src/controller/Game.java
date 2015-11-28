@@ -30,6 +30,8 @@ public class Game extends KeyAdapter {
 
 	private UpdateController updateController;
 
+	private SynchronousEventController synchronousEventController;
+
 	private static Game instance;
 
 	public static int containersTransfered;
@@ -52,9 +54,13 @@ public class Game extends KeyAdapter {
 		this.gameIsPaused = false;
 		this.slowMotion = false;
 
+		this.synchronousEventController = new SynchronousEventController(this.gui
+			.getInputProvider());
+
 		this.mouseController = new MouseController(this.map, gui.getComponent());
-		this.gui.getInputProvider().addMouseListener(this.mouseController);
-		this.gui.getInputProvider().addKeyListener(this);
+
+		this.synchronousEventController.addMouseListener(this.mouseController);
+		this.synchronousEventController.addKeyListener(this);
 
 		this.collisionController = new CollisionController(this.map, this::pauseGame);
 		this.shipController = new ShipController(this.map);
@@ -80,6 +86,7 @@ public class Game extends KeyAdapter {
 
 	int x = 0;
 	private void updateBeforeDrawing() {
+		this.synchronousEventController.distributeEvents();
 		if (!this.gameIsPaused) {
 			this.mouseController.update();
 
