@@ -4,8 +4,6 @@ new features:
 	~ docks that only accept one size of ships
 + improve graphics: floor
 + Docktyp: Schiffe docken seitlich an
-~ add mouse/key events to event queue which are updated in game loop
-	(prevent concurrent modification exceptions)
 ~ rectangle collision boxes for ships
 ~ prerender map (land, beach, [docks])
 ~ intelligent ship spawner
