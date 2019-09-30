@@ -18,7 +18,7 @@ public class Launcher {
 		System.setProperty("sun.java2d.opengl", "True");
 		System.setProperty("sun.java2d.accthreshold", "0");
 
-		Log.setLevel(Log.Level.INFO);
+		Log.getInstance().currentLogLevel = Log.Level.INFO;
 
 		Launcher launcher = new Launcher();
 		SwingUtilities.invokeLater(launcher::init);

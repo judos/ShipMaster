@@ -16,9 +16,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>srcUtil</name>
+			<name>judosUtil</name>
 			<type>2</type>
-			<location>D:/Julian/eclipse workspace/WaDosUtil/judos</location>
+			<location>D:/projects/eclipse/WaDosUtil/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

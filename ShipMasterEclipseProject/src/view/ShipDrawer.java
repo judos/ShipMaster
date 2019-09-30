@@ -23,14 +23,15 @@ public class ShipDrawer {
 	private static final Color pathColor = new Color(255, 255, 255);
 
 	public static void drawShip(Graphics2D g, Ship s) {
+		GraphicsUtils gUtil = () -> g;
 		PointF pos = s.getPoint();
 		g.translate(pos.getXI(), pos.getYI());
 		g.rotate(s.getDirection().getRadian());
 		ShipType type = s.getType();
 		if (type == ShipType.LARGE)
-			GraphicsUtils.drawCentered(g, Assets.ship5);
+			gUtil.drawCentered(Assets.ship5);
 		else
-			GraphicsUtils.drawCentered(g, Assets.ship5);
+			gUtil.drawCentered(Assets.ship5);
 		drawShipCargo(g, s);
 	}
 
