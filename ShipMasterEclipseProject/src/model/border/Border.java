@@ -41,7 +41,7 @@ public abstract class Border {
 		Optional<Ship> ship);
 
 	public void turnShip(Ship ship) {
-		Angle target = ship.getDirection().bounceOnNormal(this.normalAngle);
+		Angle target = ship.getTargetDirection().bounceOnNormal(this.normalAngle);
 		ship.setDirection(target);
 	}
 

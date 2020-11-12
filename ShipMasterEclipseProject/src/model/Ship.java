@@ -19,6 +19,7 @@ public class Ship {
 
 	private PointF point;
 	private Angle direction;
+	private Angle targetDirection;
 	private ShipType type;
 	private ArrayList<PointI> path;
 	private boolean isInDanger;
@@ -33,6 +34,7 @@ public class Ship {
 	public Ship(DirectedPoint point, ShipType type, Cargo cargo) {
 		this.point = point.getPointF();
 		this.direction = point.getAAngle();
+		this.targetDirection = this.direction.clone();
 		this.type = type;
 		this.cargo = cargo;
 		this.path = new ArrayList<>();
@@ -51,17 +53,19 @@ public class Ship {
 			return this.point;
 		if (this.path.size() > 0) {
 			PointI nextTarget = this.path.get(0);
-			this.direction = this.point.getAAngleTo(nextTarget);
-
+			this.targetDirection = this.point.getAAngleTo(nextTarget);
+			
 			if (this.point.distance(nextTarget) < 5) {
 				this.path.remove(0);
 				if (this.path.size() == 0 && this.targetDock != null) {
 					this.isStopped = true;
 					this.direction = this.targetDock.getDirection().add(Angle.A_180);
+					this.targetDirection = this.direction;
 				}
 			}
 		}
-		return this.point.movePoint(this.direction.getRadian(), this.type.getSpeed());
+		this.direction.approachAngle(this.targetDirection, Angle.fromDegree(this.type.getTurnSpeed()));
+		return this.point.movePoint(this.targetDirection.getRadian(), this.type.getSpeed());
 	}
 
 	public PointF getPoint() {
@@ -136,7 +140,7 @@ public class Ship {
 		if (didAction) {
 			Game.containersTransfered++;
 			if (!this.targetDock.canAccept(this.cargo)) {
-				this.direction = this.targetDock.getDirection();
+				this.direction = this.targetDock.getDirection().clone();
 				this.targetDock = null;
 			}
 		}
@@ -172,7 +176,11 @@ public class Ship {
 	 * @param a
 	 */
 	public void setDirection(Angle a) {
-		this.direction = a;
+		this.targetDirection = a;
 		this.path.clear();
+	}
+
+	public Angle getTargetDirection() {
+		return this.targetDirection;
 	}
 }
