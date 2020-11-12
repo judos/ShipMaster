@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -8,13 +7,13 @@ import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import ch.judos.generic.data.geometry.PointF;
+import ch.judos.generic.data.geometry.PointI;
+import ch.judos.generic.graphics.GraphicsUtils;
 import model.Cargo;
 import model.CargoType;
 import model.Ship;
 import model.ShipType;
-import ch.judos.generic.data.geometry.PointF;
-import ch.judos.generic.data.geometry.PointI;
-import ch.judos.generic.graphics.GraphicsUtils;
 
 /**
  * @since 14.05.2015
@@ -79,13 +78,37 @@ public class ShipDrawer {
 		g.setColor(pathColor);
 		ArrayList<PointI> path = s.getPath();
 		PointI lastPoint = s.getPoint().i();
-		GeneralPath polygon = new GeneralPath(GeneralPath.WIND_EVEN_ODD, path.size());
-		polygon.moveTo(lastPoint.x, lastPoint.y);
-		for (PointI point : path) {
-			polygon.lineTo(point.x, point.y);
-			lastPoint = point;
+		GeneralPath poly = new GeneralPath(GeneralPath.WIND_EVEN_ODD, path.size());
+		poly.moveTo(lastPoint.x, lastPoint.y);
+
+		PointI last = null;
+		int index = 0;
+		for (PointI cur : path) {
+			if (index == path.size() - 1) {
+				if (last == null) {
+					poly.lineTo(cur.x, cur.y);
+				}
+				else {
+					PointI middle = new PointI((last.x + cur.x) / 2, (last.y + cur.y) / 2);
+					poly.curveTo(last.x, last.y, last.x, last.y, middle.x, middle.y);
+					poly.lineTo(cur.x, cur.y);
+				}
+			}
+			else {
+				if (last == null) {
+					PointI middle = new PointI((lastPoint.x + cur.x) / 2, (lastPoint.y + cur.y) / 2);
+					poly.lineTo(middle.x, middle.y);
+				}
+				else {
+					PointI middle = new PointI((last.x + cur.x) / 2, (last.y + cur.y) / 2);
+					poly.curveTo(last.x, last.y, last.x, last.y, middle.x, middle.y);
+				}
+			}
+
+			index++;
+			last = cur;
 		}
-		g.draw(polygon);
+		g.draw(poly);
 	}
 
 	public static void drawShipInDanger(Graphics2D g, Ship s) {
