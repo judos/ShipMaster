@@ -13,7 +13,6 @@ import ch.judos.generic.data.geometry.PointI;
  */
 public class SpawnShipController {
 
-	private static final float spawnShipEveryXSec = 6.5f;
 	private static final int dontSpawnNearerThanXPixelsToShip = 200;
 	private static final boolean shouldSpawnShips = true;
 
@@ -28,14 +27,21 @@ public class SpawnShipController {
 
 	public void update() {
 		this.timer++;
-		if (this.timer > Game.FPS * spawnShipEveryXSec && shouldSpawnShips) {
+		if (this.timer > Game.FPS * map.spawnShipEveryXSec && shouldSpawnShips) {
 			this.timer = 0;
+			if (map.spawnShipEveryXSec > 4) {
+				map.spawnShipEveryXSec -= 0.15;
+			}
+			else if (map.spawnShipEveryXSec > 2.5) {
+				map.spawnShipEveryXSec -= 0.08;
+			}
 
 			ShipType type = ShipType.getRandom();
 			DirectedPoint spawn;
 			do {
 				spawn = this.map.getSpawnLocation(type.getSize());
-			} while (nearestDistanceToPoint(spawn.getPoint(), dontSpawnNearerThanXPixelsToShip) < dontSpawnNearerThanXPixelsToShip);
+			} while (nearestDistanceToPoint(spawn.getPoint(),
+				dontSpawnNearerThanXPixelsToShip) < dontSpawnNearerThanXPixelsToShip);
 			Cargo cargo = this.map.generateCargo(type);
 			Ship ship = new Ship(spawn, type, cargo);
 			this.map.addShip(ship);
@@ -43,10 +49,8 @@ public class SpawnShipController {
 	}
 
 	/**
-	 * @param point
-	 *            the point from where to check the distance to the nearest ship
-	 * @param lowerLimitInterested
-	 *            if the value is below this limit, immediately returns
+	 * @param point the point from where to check the distance to the nearest ship
+	 * @param lowerLimitInterested if the value is below this limit, immediately returns
 	 * @return distance
 	 */
 	public int nearestDistanceToPoint(PointI point, int lowerLimitInterested) {

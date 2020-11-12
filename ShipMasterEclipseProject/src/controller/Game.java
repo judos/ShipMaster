@@ -109,6 +109,10 @@ public class Game extends KeyAdapter {
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE)
 			this.slowMotion = !this.slowMotion;
+		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			this.map.save();
+			this.gui.quit();
+		}
 	}
 
 }

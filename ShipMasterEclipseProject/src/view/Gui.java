@@ -21,6 +21,7 @@ public class Gui implements Drawable2d {
 	private Drawable2d drawable;
 	private GraphicsDevice deviceUsed;
 	Runnable update;
+	boolean running = false;
 
 	public Gui(Optional<Runnable> onQuit) {
 		GraphicsDevice[] dev = FullScreen.getDevices();
@@ -61,13 +62,14 @@ public class Gui implements Drawable2d {
 		// workaround: sometimes after loosing focus, no input works anymore on
 		// the frame
 		// note: still the case for double-screen setups on windows
-//		this.frame.setVisible(false);
-//		this.frame.setVisible(true);
+		// this.frame.setVisible(false);
+		// this.frame.setVisible(true);
 		// end of workaround
 
 		this.frame.createBufferStrategy(2);
 		startViewWithoutOpeningFrame(fps);
 	}
+
 	public void startView(int fps) {
 		this.frame.openFrame(true);
 		startViewWithoutOpeningFrame(fps);
@@ -79,12 +81,13 @@ public class Gui implements Drawable2d {
 	}
 
 	private void startViewWithoutOpeningFrame(int fps) {
+		this.running = true;
 		Thread t = new Thread("Render thread") {
 			@Override
 			public void run() {
 				long delay = 1000000000 / fps;
 				long lastFrame = System.nanoTime();
-				while (true) {
+				while (Gui.this.running) {
 					long ns = System.nanoTime();
 					if (ns - lastFrame >= delay) {
 						lastFrame = ns;
@@ -113,11 +116,12 @@ public class Gui implements Drawable2d {
 	}
 
 	public void startViewWhileTrue() {
+		this.running = true;
 		this.frame.openFrame(true);
 		Thread t = new Thread("Render thread") {
 			@Override
 			public void run() {
-				while (true)
+				while (Gui.this.running)
 					Gui.this.frame.renderScreen();
 			}
 		};
@@ -167,6 +171,10 @@ public class Gui implements Drawable2d {
 	public void quit() {
 		this.frame.setVisible(false);
 		this.frame.dispose();
+		this.running = false;
+		if (this.timer != null) {
+			this.timer.cancel();
+		}
 	}
 
 }

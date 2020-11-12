@@ -27,6 +27,7 @@ public class Map {
 	private DynamicList<Polygon> landPolygons;
 	private DynamicList<Attention> attentions;
 	private HashSet<ContainerStack> stacks;
+	public float spawnShipEveryXSec = 6;
 
 	public Map() {
 		this.docks = new ArrayList<>();
@@ -113,5 +114,10 @@ public class Map {
 
 	public DynamicList<Border> getBorders() {
 		return this.borders;
+	}
+
+	public void save() {
+		// TODO Auto-generated method stub
+		
 	}
 }

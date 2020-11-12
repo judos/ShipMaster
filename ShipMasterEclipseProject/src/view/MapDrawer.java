@@ -54,6 +54,8 @@ public class MapDrawer implements Drawable2d {
 		g.setFont(text);
 		g.drawString("Ships around: " + ships, 20, 20);
 		g.drawString("Containers transfered: " + Game.containersTransfered, 20, 50);
+		g.drawString("Spawntime: " + String.format("%.2f", map.spawnShipEveryXSec), 20, 80);
+
 	}
 
 	private void drawAttentionSigns(Graphics2D g) {
@@ -77,8 +79,7 @@ public class MapDrawer implements Drawable2d {
 		for (Dock d : this.map.getDocks()) {
 			Area dockArea = new Area(new Rectangle(-50, -50, 100, 100));
 			DirectedPoint p = d.getPoint();
-			dockArea
-				.transform(AffineTransform.getRotateInstance(d.getDirection().getRadian()));
+			dockArea.transform(AffineTransform.getRotateInstance(d.getDirection().getRadian()));
 			dockArea.transform(AffineTransform.getTranslateInstance(p.getX(), p.getY()));
 			a.subtract(dockArea);
 		}
@@ -170,16 +171,15 @@ public class MapDrawer implements Drawable2d {
 			int width = square;
 			int height = square * 3;
 			float f = 1.2f; // how much space between Containers
-			g.translate(-(float) width / 2. * (f * containerSize.width), -(float) height / 2.
-				* (f * containerSize.height));
+			g.translate(-(float) width / 2. * (f * containerSize.width), -(float) height / 2. * (f * containerSize.height));
 			BufferedImage container = Assets.containers.get(stack.getColor());
 			int amount = 1;
-			outer : for (int y = 0; y < height; y++) {
+			outer: for (int y = 0; y < height; y++) {
 				for (int x = 0; x < width; x++) {
 					if (amount > stack.getSize())
 						break outer;
-					g.drawImage(container, (int) (x * (containerSize.width * 1.2)),
-						(int) (y * (containerSize.height * 1.2)), null);
+					g.drawImage(container, (int) (x * (containerSize.width * 1.2)), (int) (y * (containerSize.height * 1.2)),
+						null);
 					amount++;
 				}
 			}
