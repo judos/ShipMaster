@@ -5,3 +5,5 @@ bin/
 
 # build tool files
 .gradle
+
+log.txt

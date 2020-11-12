@@ -1,8 +1,10 @@
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -20,7 +22,7 @@ import ch.judos.generic.graphics.GraphicsUtils;
  */
 public class ShipDrawer {
 
-	private static final Color pathColor = new Color(255, 255, 255);
+	private static final Color pathColor = new Color(255, 255, 255, 128);
 
 	private static boolean initialized = false;
 	private static Dimension containerSize;
@@ -53,7 +55,7 @@ public class ShipDrawer {
 		Cargo cargo = s.getCargo();
 		if (cargo.getTypeAt(0) != CargoType.NONE) {
 			BufferedImage im = Assets.containers.get(cargo.getColorOf(0));
-			g.drawImage(im, -containerSize.width / 2, -containerSize.height/2, null);
+			g.drawImage(im, -containerSize.width / 2, -containerSize.height / 2, null);
 		}
 	}
 
@@ -74,13 +76,16 @@ public class ShipDrawer {
 	}
 
 	public static void drawPath(Graphics2D g, Ship s) {
+		g.setColor(pathColor);
 		ArrayList<PointI> path = s.getPath();
 		PointI lastPoint = s.getPoint().i();
-		g.setColor(pathColor);
+		GeneralPath polygon = new GeneralPath(GeneralPath.WIND_EVEN_ODD, path.size());
+		polygon.moveTo(lastPoint.x, lastPoint.y);
 		for (PointI point : path) {
-			g.drawLine(lastPoint.x, lastPoint.y, point.x, point.y);
+			polygon.lineTo(point.x, point.y);
 			lastPoint = point;
 		}
+		g.draw(polygon);
 	}
 
 	public static void drawShipInDanger(Graphics2D g, Ship s) {

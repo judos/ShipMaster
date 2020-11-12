@@ -125,7 +125,7 @@ public class MapDrawer implements Drawable2d {
 	}
 
 	private void drawShipPaths(Graphics2D g) {
-		g.setStroke(new BasicStroke(5));
+		g.setStroke(new BasicStroke(8, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
 		for (Ship s : this.map.getShips()) {
 			ShipDrawer.drawPath(g, s);
 		}
