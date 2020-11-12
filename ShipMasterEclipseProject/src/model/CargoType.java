@@ -5,14 +5,10 @@ import java.util.HashSet;
 
 import ch.judos.generic.data.DynHashSet;
 
-/**
- * @since 14.05.2015
- * @author Julian Schelker
- */
 public enum CargoType {
 
 	YELLOW(Color.yellow, Direction.canBeImported),
-	PURPLE(new Color(170, 80, 170), Direction.canBeImported),
+	BLUE(Color.blue, Direction.canBeImported),
 	GREEN(Color.green, Direction.canBeImported),
 	NONE(new Color(0, 0, 0, 0), Direction.canBeExported),
 	RED(Color.red, Direction.canBeExported);

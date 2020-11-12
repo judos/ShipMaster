@@ -2,10 +2,6 @@ package model;
 
 import ch.judos.generic.data.RandomJS;
 
-/**
- * @since 14.05.2015
- * @author Julian Schelker
- */
 public enum ShipType {
 	SMALL(15, 2.8f, 1), MEDIUM(22, 2f, 2), LARGE(30, 1.6f, 5);
 

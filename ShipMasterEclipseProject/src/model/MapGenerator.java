@@ -18,20 +18,20 @@ public class MapGenerator {
 		dock2.setAcceptedCargo(CargoType.GREEN);
 		m.addDock(dock2);
 		Dock dock3 = new Dock(new DirectedPoint(1100, 110, Angle.fromDegree(90)), DockType.FAST);
-		dock3.setAcceptedCargo(CargoType.PURPLE);
+		dock3.setAcceptedCargo(CargoType.BLUE);
 		m.addDock(dock3);
 		ContainerStack stack = new ContainerStack(10, (ContainerStack s) -> {}, new PointI(1400, 110));
 		LoadingDock d1 = new LoadingDock(new DirectedPoint(1300, 110, Angle.fromDegree(90)), stack);
 		m.addDock(d1);
 
-		DynHashSet<CargoType> accepted = new DynHashSet<CargoType>(CargoType.YELLOW, CargoType.GREEN, CargoType.PURPLE);
+		DynHashSet<CargoType> accepted = new DynHashSet<CargoType>(CargoType.YELLOW, CargoType.GREEN, CargoType.BLUE);
 
 		Cargo c1 = Cargo.getSingleColor(5, accepted);
 		Cargo c3 = Cargo.getMixed(5, accepted);
 		Cargo c2 = Cargo.getSingleColor(5, accepted);
 
 		m.addShip(new Ship(new DirectedPoint(700, 300, Angle.fromDegree(270)), ShipType.LARGE, c3));
-		m.addShip(new Ship(new DirectedPoint(900, 300, Angle.fromDegree(270)), ShipType.LARGE, c2));
+		m.addShip(new Ship(new DirectedPoint(900, 300, Angle.fromDegree(270)), ShipType.SMALL, c2));
 		m.addShip(new Ship(new DirectedPoint(1100, 300, Angle.fromDegree(270)), ShipType.LARGE, c1));
 
 		m.setSpawnGenerator((shipSize) -> {

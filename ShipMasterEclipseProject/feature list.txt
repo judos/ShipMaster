@@ -3,7 +3,6 @@ new features:
 + different sizes of ships (rendered)
 	~ docks that only accept one size of ships
 + improve graphics: floor
-+ Docktyp: Schiffe docken seitlich an
 ~ rectangle collision boxes for ships
 ~ prerender map (land, beach, [docks])
 ~ intelligent ship spawner

@@ -25,6 +25,7 @@ public class Assets {
 	public static BufferedImage rock;
 	public static BufferedImage container;
 	public static HashMap<Color, BufferedImage> containers;
+	public static BufferedImage ship1;
 	public static BufferedImage ship5;
 
 	private static boolean isLoaded = false;
@@ -75,11 +76,12 @@ public class Assets {
 	private static void loadAllAssets() {
 		TimerJS loadAssestsTimer = new TimerJS();
 		grass = load("grass.png");
-		water = new BufferedImage[16];
 		rock = load("rockwall.png");
 		container = load("container.png");
+		ship1 = load("ship1.png");
 		ship5 = load("ship5.png");
 		BufferedImage waterFramed = load("water2-q40.jpg");
+		water = new BufferedImage[16];
 		for (int y = 0; y < 4; y++) {
 			for (int x = 0; x < 4; x++) {
 				water[y * 4 + x] = waterFramed.getSubimage(x * 1024, y * 1024, 1024, 1024);

@@ -22,32 +22,53 @@ public class ShipDrawer {
 
 	private static final Color pathColor = new Color(255, 255, 255);
 
+	private static boolean initialized = false;
+	private static Dimension containerSize;
+
+	private static void initalize() {
+		if (initialized)
+			return;
+		containerSize = Assets.dimensionOf(Assets.container);
+		initialized = true;
+	}
+
 	public static void drawShip(Graphics2D g, Ship s) {
+		initalize();
 		GraphicsUtils gUtil = () -> g;
 		PointF pos = s.getPoint();
 		g.translate(pos.getXI(), pos.getYI());
 		g.rotate(s.getDirection().getRadian());
 		ShipType type = s.getType();
-		if (type == ShipType.LARGE)
+		if (type == ShipType.SMALL) {
+			gUtil.drawCentered(Assets.ship1);
+			drawShipCargoSmall(g, s);
+		}
+		else {
 			gUtil.drawCentered(Assets.ship5);
-		else
-			gUtil.drawCentered(Assets.ship5);
-		drawShipCargo(g, s);
+			drawShipCargoLarge(g, s);
+		}
 	}
 
-	private static void drawShipCargo(Graphics2D g, Ship s) {
+	private static void drawShipCargoSmall(Graphics2D g, Ship s) {
+		Cargo cargo = s.getCargo();
+		if (cargo.getTypeAt(0) != CargoType.NONE) {
+			BufferedImage im = Assets.containers.get(cargo.getColorOf(0));
+			g.drawImage(im, -containerSize.width / 2, -containerSize.height/2, null);
+		}
+	}
+
+	private static void drawShipCargoLarge(Graphics2D g, Ship s) {
 		Cargo cargo = s.getCargo();
 		int total = cargo.getSize();
 
-		Dimension size = Assets.dimensionOf(Assets.container);
-		float y = -(float) total / 2.f * size.height;
+		float y = -(float) total / 2.f * containerSize.height;
 		g.rotate(Math.PI / 2);
 		for (int i = 0; i < cargo.getSize(); i++) {
 			if (cargo.getTypeAt(i) != CargoType.NONE) {
 				BufferedImage im = Assets.containers.get(cargo.getColorOf(i));
-				g.drawImage(im, -size.width / 2, (int) y, null);
+				g.drawImage(im, -containerSize.width / 2, (int) y, null);
 			}
-			y += size.height;
+			y += containerSize.height;
 		}
 		g.rotate(-Math.PI / 2);
 	}

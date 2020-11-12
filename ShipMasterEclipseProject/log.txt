@@ -1,1 +1,1 @@
-02:20:29.978 INFO in loadAllAssets (Assets.java:94) loading Assets: 1990 ms
+02:54:53.860 INFO in loadAllAssets (Assets.java:96) loading Assets: 2122 ms
