@@ -61,8 +61,8 @@ public class Gui implements Drawable2d {
 		// workaround: sometimes after loosing focus, no input works anymore on
 		// the frame
 		// note: still the case for double-screen setups on windows
-		this.frame.setVisible(false);
-		this.frame.setVisible(true);
+//		this.frame.setVisible(false);
+//		this.frame.setVisible(true);
 		// end of workaround
 
 		this.frame.createBufferStrategy(2);

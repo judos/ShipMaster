@@ -7,7 +7,7 @@ import ch.judos.generic.data.RandomJS;
  * @author Julian Schelker
  */
 public enum ShipType {
-	SMALL(15, 0.7f, 1), MEDIUM(22, 0.5f, 2), LARGE(30, 0.4f, 5);
+	SMALL(15, 2.8f, 1), MEDIUM(22, 2f, 2), LARGE(30, 1.6f, 5);
 
 	public static ShipType getRandom() {
 		int index = RandomJS.getInt(values().length - 1);

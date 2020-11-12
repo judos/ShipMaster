@@ -6,7 +6,7 @@ package model;
  */
 public enum DockType {
 
-	NORMAL(2f), FAST(1.5f);
+	NORMAL(1.2f), FAST(2f);
 
 	private float unloadPerSecond;
 

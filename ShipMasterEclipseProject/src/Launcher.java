@@ -9,10 +9,6 @@ import view.Gui;
 import ch.judos.generic.control.Log;
 import controller.Game;
 
-/**
- * @since 14.05.2015
- * @author Julian Schelker
- */
 public class Launcher {
 	public static void main(String[] args) {
 		System.setProperty("sun.java2d.opengl", "True");
