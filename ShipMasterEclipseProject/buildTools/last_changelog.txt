@@ -1,3 +1,77 @@
+0.1.2.40
+Julian Schelker - 2020-11-12 (commit: e7996bf) 
+ships should not turn immediately, looks much nicer
+
+Julian Schelker - 2020-11-12 (commit: 4c88d77) 
+draw path of ships as bezier curves, looks very smooth
+
+Julian Schelker - 2020-11-12 (commit: 342a5c2) 
+draw ship paths nicer
+
+Julian Schelker - 2020-11-12 (commit: 60845f2) 
+esc quits game, add increasing difficulty by spawning more ships over time
+
+Julian Schelker - 2020-11-12 (commit: ec016d6) 
+update cargo colors, add small ship with graphics
+
+Julian Schelker - 2020-11-12 (commit: 47561d3) 
+improve first map, increase ship speeds by factor 4
+
+Julian Schelker - 2019-09-30 (commit: e9c97f8) 
+look at graphics
+
+Julian Schelker - 2019-09-30 (commit: 2dda14d) 
+fix source folder dependencies, directly add libraries to git
+
+judos - 2015-11-30 (commit: 007695f) 
+updated feature list
+
+judos - 2015-11-28 (commit: c861659) 
+synchronous event queue for mouse, keyboard
+
+judos - 2015-11-28 (commit: 8f280ee) 
+added logging, removed extra sized boat
+
+judos - 2015-09-16 (commit: 50cb98b) 
+updated Ship, Cargo graphics, rework of asset loading
+
+judos - 2015-09-11 (commit: d6ef52a) 
+ContainerStacks fill up and are drawn on the map
+
+judos - 2015-09-10 (commit: b0fe92a) 
+fixed a bug where the ship changes direction on border even so it is moving into dock. Added slow motion feature to the game for debugging
+
+judos - 2015-09-09 (commit: 81d85a0) 
+added red container which must be exported
+
+judos - 2015-09-09 (commit: 863d119) 
+formatted whole source code
+
+judos - 2015-09-09 (commit: 7792ad8) 
+better mechanism when a ship can be selected
+
+judos - 2015-09-09 (commit: 0daf896) 
+fixed a bug where no input was possible, after focus switch on windows double screen environment
+
+judos - 2015-09-08 (commit: 671b3c2) 
+implemented export cargo, not used yet in game
+
+judos - 2015-09-07 (commit: 3d34995) 
+dock show their color, amount of cargo unloaded is displayed
+
+judos - 2015-09-07 (commit: 8ac3399) 
+updated feature list and changelog
+
+judos - 2015-09-04 (commit: 16ab6d2) 
+ships don't spawn near leaving ships (collisions which player can't prevent)
+
+judos - 2015-09-04 (commit: 3129396) 
+updated feature list, improved starting map
+
+judos - 2015-09-04 (commit: 482d257) 
+added release 0.1.1.16 to repository
+_________________________
+				
 0.1.1.16
 judos - 2015-09-04 (commit: d16bfd5) 
 setup proper ant task in build to add changelog to releases

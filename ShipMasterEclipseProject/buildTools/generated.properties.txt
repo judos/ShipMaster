@@ -1,4 +1,4 @@
-#Fri, 04 Sep 2015 00:49:22 +0200
-version.minor.last=1
+#Sun, 15 Nov 2020 21:11:27 +0100
+version.minor.last=2
 version.major.last=0.1
-version.last.commit=d16bfd5
+version.last.commit=e7996bf

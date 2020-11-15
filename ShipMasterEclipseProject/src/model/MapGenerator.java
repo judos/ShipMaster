@@ -28,7 +28,7 @@ public class MapGenerator {
 
 		Cargo c1 = Cargo.getSingleColor(5, accepted);
 		Cargo c3 = Cargo.getMixed(5, accepted);
-		Cargo c2 = Cargo.getSingleColor(5, accepted);
+		Cargo c2 = Cargo.getSingleColor(1, accepted);
 
 		m.addShip(new Ship(new DirectedPoint(700, 300, Angle.fromDegree(270)), ShipType.LARGE, c3));
 		m.addShip(new Ship(new DirectedPoint(900, 300, Angle.fromDegree(270)), ShipType.SMALL, c2));
